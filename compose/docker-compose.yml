@@ -1,0 +1,142 @@
+services:
+
+  # Root container
+  nginx:
+    image: nginx:alpine-slim
+    container_name: nginx
+    restart: always
+    volumes:
+      - "./dashboard:/usr/share/nginx/html"
+    ports:
+      - "80:80/tcp"
+
+  # CAdvisor container
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.55.1
+    container_name: cadvisor
+    restart: unless-stopped
+    hostname: 
+      cadvisor
+    devices:
+      - /dev/kmsg
+    ipc: shareable
+    privileged: true
+    command:
+      - '-housekeeping_interval=20s'
+      - '-store_container_labels=false'
+      - '-docker_only=true'
+    security_opt:
+      - label=disable
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+      - /etc/machine-id:/etc/machine-id:ro
+
+  # Node-Exporter container
+  node-exporter:
+    image: prom/node-exporter:v1.10.2
+    container_name: node-exporter
+    restart: unless-stopped
+    hostname: 
+      node-exporter
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/host
+      - --collector.filesystem.ignored-mount-points
+      - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+      - /:/host:ro,rslave
+
+  # BlackBox exporter container
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.28.0
+    container_name: blackbox-exporter
+    restart: unless-stopped
+    hostname: 
+      blackbox-exporter
+    command:
+      - '--config.file=/config/blackbox.yml'
+    volumes:
+      - "./blackbox-exporter:/config"
+
+  # Prometheus container
+  prometheus:
+    image: prom/prometheus:v3.9.1
+    container_name: prometheus
+    restart: unless-stopped
+    hostname: 
+      prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=10d'
+    volumes:
+      - "./prometheus:/etc/prometheus"
+      - "${MONITORING_DATA_DIR}/prometheus/data:/prometheus"
+    links:
+      - cadvisor:cadvisor
+      - node-exporter:node-exporter
+    depends_on:
+      - cadvisor
+      - node-exporter
+      - blackbox-exporter
+
+  # Grafana container
+  grafana:
+    image: grafana/grafana:12.3.2
+    container_name: grafana
+    restart: always
+    volumes:
+      - "${MONITORING_DATA_DIR}/grafana/storage:/var/lib/grafana"
+      - "${MONITORING_DATA_DIR}/grafana/provisioning:/etc/grafana/provisioning"
+    ports:
+      - "3000:3000/tcp"
+    links:
+      - prometheus:prometheus
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    depends_on:
+      - prometheus 
+
+  # Files Browser container
+  files:
+    image: filebrowser/filebrowser:v2.57.0
+    container_name: files
+    restart: always
+    hostname:
+      files
+    volumes:
+      - "${DATA_DIR}/filebrowser/data/filebrowser.db:/database/filebrowser.db"
+      - "${FS_DIR}:/srv"
+    ports:
+      - "8080:80/tcp"
+    command:
+      - '--database'
+      - '/database/filebrowser.db'
+    environment:
+      TZ: Europe/Sofia
+
+  # PiHole container
+  pihole:
+    image: pihole/pihole:2025.11.1
+    container_name: pihole
+    restart: always
+    volumes:
+      - "${MONITORING_DATA_DIR}/pihole/etc_pihole:/etc/pihole"
+      - "${MONITORING_DATA_DIR}/pihole/etc_dnsmasq.d:/etc/dnsmasq.d"
+    ports:
+      - "${ROOT_IP}:53:53/tcp"
+      - "${ROOT_IP}:53:53/udp"
+      - "8081:80/tcp"
+    environment:
+      TZ: Europe/Sofia
+      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
+      FTLCONF_dns_listeningMode: all
