@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 29,
   "links": [],
   "panels": [
     {
@@ -44,7 +43,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Busy state of all CPU cores together",
       "fieldConfig": {
@@ -88,7 +87,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
+        "w": 4,
         "x": 0,
         "y": 1
       },
@@ -109,17 +108,16 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "(sum by(instance) (irate(node_cpu_seconds_total{mode!=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total[$__rate_interval])))) * 100",
-          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -134,7 +132,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Busy state of all CPU cores together (5 min average)",
       "fieldConfig": {
@@ -178,8 +176,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
-        "x": 3,
+        "w": 4,
+        "x": 4,
         "y": 1
       },
       "id": 58,
@@ -199,18 +197,17 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "avg(node_load5) /  count(count(node_cpu_seconds_total) by (cpu)) * 100",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -225,7 +222,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Hardware temperature",
       "fieldConfig": {
@@ -270,8 +267,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
-        "x": 6,
+        "w": 4,
+        "x": 8,
         "y": 1
       },
       "id": 44,
@@ -292,18 +289,17 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "node_hwmon_temp_celsius{sensor=\"temp11\"}",
+          "expr": "node_thermal_zone_temp{type=\"cpu-thermal\"}",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -318,7 +314,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Non available RAM memory",
       "fieldConfig": {
@@ -353,8 +349,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
-        "x": 9,
+        "w": 4,
+        "x": 12,
         "y": 1
       },
       "id": 54,
@@ -374,12 +370,12 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -396,13 +392,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "100 - ((node_memory_MemAvailable_bytes * 100) / node_memory_MemTotal_bytes)",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -417,7 +412,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Used Root FS",
       "fieldConfig": {
@@ -461,8 +456,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
-        "x": 12,
+        "w": 4,
+        "x": 16,
         "y": 1
       },
       "id": 26,
@@ -483,18 +478,17 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\"})",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "/",
@@ -509,9 +503,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
-      "description": "Used Media File System",
+      "description": "Used Backups File System",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -553,8 +547,8 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 3,
-        "x": 15,
+        "w": 4,
+        "x": 20,
         "y": 1
       },
       "id": 56,
@@ -574,16 +568,16 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/Media\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/Media\"})",
+          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/backups\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/backups\"})",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -592,191 +586,13 @@
           "step": 240
         }
       ],
-      "title": "Media",
+      "title": "Backups",
       "type": "gauge"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
-      },
-      "description": "Used TimeMachine File System",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 18,
-        "y": 1
-      },
-      "id": 90,
-      "options": {
-        "minVizHeight": 200,
-        "minVizWidth": 200,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "text": {}
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/TimeMachine\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/TimeMachine\"})",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "TM",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "WTP-C6f7z"
-      },
-      "description": "Used External File System",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": 0
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 21,
-        "y": 1
-      },
-      "id": 97,
-      "options": {
-        "minVizHeight": 200,
-        "minVizWidth": 200,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "text": {}
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/External\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/External\"})",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "range": true,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "External",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Total number of CPU cores",
       "fieldConfig": {
@@ -814,7 +630,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
+        "w": 4,
         "x": 0,
         "y": 6
       },
@@ -837,12 +653,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "count(count(node_cpu_seconds_total) by (cpu))",
@@ -857,7 +673,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Total containers running",
       "fieldConfig": {
@@ -895,8 +711,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 3,
+        "w": 4,
+        "x": 4,
         "y": 6
       },
       "id": 70,
@@ -918,12 +734,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "count(container_last_seen{image=~ \"(.)+\"})",
@@ -938,7 +754,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "System uptime",
       "fieldConfig": {
@@ -977,8 +793,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 6,
+        "w": 4,
+        "x": 8,
         "y": 6
       },
       "id": 89,
@@ -1000,12 +816,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "node_time_seconds - node_boot_time_seconds",
@@ -1020,7 +836,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Total RAM",
       "fieldConfig": {
@@ -1059,8 +875,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 9,
+        "w": 4,
+        "x": 12,
         "y": 6
       },
       "id": 74,
@@ -1082,12 +898,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "node_memory_MemTotal_bytes",
@@ -1098,11 +914,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes",
-          "hide": false,
           "legendFormat": "Used",
           "range": true,
           "refId": "B"
@@ -1114,7 +929,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Total Root",
       "fieldConfig": {
@@ -1157,8 +972,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 12,
+        "w": 4,
+        "x": 16,
         "y": 6
       },
       "id": 92,
@@ -1180,12 +995,12 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\"}",
@@ -1196,11 +1011,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "node_filesystem_size_bytes{mountpoint=\"/\",fstype!=\"rootfs\"} - node_filesystem_avail_bytes{mountpoint=\"/\",fstype!=\"rootfs\"}",
-          "hide": false,
           "legendFormat": "Used",
           "range": true,
           "refId": "B"
@@ -1212,9 +1026,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
-      "description": "Total Media",
+      "description": "Total Backups",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1251,8 +1065,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 3,
-        "x": 15,
+        "w": 4,
+        "x": 20,
         "y": 6
       },
       "id": 93,
@@ -1274,15 +1088,15 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/Media\"}",
+          "expr": "node_filesystem_size_bytes{mountpoint=\"/backups\"}",
           "legendFormat": "Capacity",
           "range": true,
           "refId": "A"
@@ -1290,205 +1104,16 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/Media\"} - node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/Media\"}",
-          "hide": false,
+          "expr": "node_filesystem_size_bytes{mountpoint=\"/backups\"} - node_filesystem_avail_bytes{mountpoint=\"/backups\"}",
           "legendFormat": "Used",
           "range": true,
           "refId": "B"
         }
       ],
-      "title": "Media",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "WTP-C6f7z"
-      },
-      "description": "Total TM",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 18,
-        "y": 6
-      },
-      "id": 94,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/TimeMachine\"}",
-          "legendFormat": "Capacity",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/TimeMachine\"} - node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/TimeMachine\"}",
-          "hide": false,
-          "legendFormat": "Used",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "TM",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "WTP-C6f7z"
-      },
-      "description": "Total External",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 21,
-        "y": 6
-      },
-      "id": 98,
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "auto",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/External\"}",
-          "legendFormat": "Capacity",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/External\"} - node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/External\"}",
-          "hide": false,
-          "legendFormat": "Used",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "External",
+      "title": "Backups",
       "type": "stat"
     },
     {
@@ -1507,7 +1132,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1538,6 +1163,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1601,12 +1227,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -1622,11 +1248,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "(sum by(instance) (irate(node_cpu_seconds_total{mode!=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total[$__rate_interval])))) * 100",
-          "hide": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -1638,7 +1263,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -1669,6 +1294,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1736,18 +1362,17 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "node_hwmon_temp_celsius{sensor=\"temp11\"}",
+          "expr": "node_thermal_zone_temp{type=\"cpu-thermal\"}",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Temp",
@@ -1762,7 +1387,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "Disk space used on Root",
       "fieldConfig": {
@@ -1794,6 +1419,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1839,17 +1465,16 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/\"})",
-          "hide": false,
           "interval": "",
           "legendFormat": "HDD",
           "range": true,
@@ -1862,9 +1487,9 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
-      "description": "Disk Media space used",
+      "description": "Disk Backups space used",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1894,6 +1519,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -1939,230 +1565,29 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/Media\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/Media\"})",
-          "hide": false,
+          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/backups\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/backups\"})",
           "interval": "",
           "legendFormat": "HDD",
           "range": true,
           "refId": "B"
         }
       ],
-      "title": "Used Media Disk Space",
+      "title": "Used Backups Disk Space",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
-      },
-      "description": "Disk space used for Time Machine",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "transparent",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 23
-      },
-      "id": 96,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/TimeMachine\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/TimeMachine\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "HDD",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Used TM Disk Space",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "WTP-C6f7z"
-      },
-      "description": "Disk space used for External",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "transparent",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 23
-      },
-      "id": 99,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "WTP-C6f7z"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "100 - ((node_filesystem_avail_bytes{mountpoint=\"/media/ubuntu/HDD/External\"} * 100) / node_filesystem_size_bytes{mountpoint=\"/media/ubuntu/HDD/External\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "HDD",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Used External Disk Space",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "description": "The number (after merges) of I/O requests completed per second for the device",
       "fieldConfig": {
@@ -2194,6 +1619,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -2542,7 +1968,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 30
+        "y": 23
       },
       "id": 60,
       "options": {
@@ -2563,17 +1989,16 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "irate(node_disk_read_bytes_total[$__rate_interval])",
-          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{device}} - reads",
@@ -2584,12 +2009,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "- irate(node_disk_written_bytes_total[$__rate_interval])",
-          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{device}} - writes",
@@ -2600,7 +2024,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2618,7 +2042,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -2649,6 +2073,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2707,7 +2132,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 30
+        "y": 23
       },
       "id": 20,
       "options": {
@@ -2723,12 +2148,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -2745,7 +2170,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -2776,6 +2201,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2819,7 +2245,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 30
+        "y": 23
       },
       "id": 19,
       "options": {
@@ -2835,18 +2261,17 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "sum(rate(container_network_receive_bytes_total{id=\"/\"}[$__rate_interval])) by (id)",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "received {{device}}",
@@ -2857,13 +2282,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
           "expr": "- sum(rate(container_network_transmit_bytes_total{id=\"/\"}[$__rate_interval])) by (id)",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "sent {{device}} ",
@@ -2881,7 +2305,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 30
       },
       "id": 80,
       "panels": [],
@@ -2891,7 +2315,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -2922,6 +2346,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2953,7 +2378,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 31
       },
       "id": 84,
       "options": {
@@ -2972,16 +2397,15 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\"}[$__rate_interval])) by (name) *100",
-          "hide": false,
           "interval": "",
           "legendFormat": "{{name}}",
           "range": true,
@@ -2994,7 +2418,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -3025,6 +2449,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -3057,7 +2482,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 45
+        "y": 38
       },
       "id": 38,
       "options": {
@@ -3073,17 +2498,16 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "container_memory_usage_bytes{name!=\"\"}",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -3094,7 +2518,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "container_spec_memory_limit_bytes{name!=\"\"}",
@@ -3113,7 +2537,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -3144,6 +2568,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -3175,7 +2600,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 45
+        "y": 38
       },
       "id": 10,
       "options": {
@@ -3191,17 +2616,16 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "sum(container_memory_rss{name!=\"\"}) by (name)",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -3212,7 +2636,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "container_memory_usage_bytes{name=~\".+\"}",
@@ -3231,7 +2655,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -3262,6 +2686,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -3293,7 +2718,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 53
+        "y": 46
       },
       "id": 82,
       "options": {
@@ -3312,16 +2737,15 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_network_receive_bytes_total{name=~\".+\"}[$__rate_interval])) by (name)",
-          "hide": false,
           "interval": "",
           "legendFormat": "{{name}}",
           "range": true,
@@ -3334,7 +2758,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -3365,6 +2789,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -3396,7 +2821,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 53
+        "y": 46
       },
       "id": 86,
       "options": {
@@ -3415,12 +2840,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_network_transmit_bytes_total{name=~\".+\"}[$__rate_interval])) by (name)",
@@ -3436,9 +2861,8 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3468,6 +2892,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -3501,7 +2926,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 54
       },
       "id": 49,
       "options": {
@@ -3517,12 +2942,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -3540,9 +2965,8 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3572,6 +2996,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -3605,7 +3030,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 54
       },
       "id": 50,
       "options": {
@@ -3621,12 +3046,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "exemplar": true,
@@ -3644,7 +3069,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -3655,6 +3080,9 @@
             "align": "auto",
             "cellOptions": {
               "type": "auto"
+            },
+            "footer": {
+              "reducers": []
             },
             "inspect": false
           },
@@ -3787,32 +3215,23 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 67
+        "y": 60
       },
       "id": 42,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "exemplar": false,
           "expr": "max(container_memory_usage_bytes{name!=\"\"}) by (name)",
           "format": "table",
-          "hide": false,
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
@@ -3822,7 +3241,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "exemplar": false,
           "expr": "max(container_memory_max_usage_bytes{name!=\"\"}-container_memory_usage_bytes{name!=\"\"})by (name)",
@@ -3836,7 +3255,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "exemplar": false,
           "expr": "max(container_memory_max_usage_bytes{name!=\"\"}) by (name)",
@@ -3875,7 +3294,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -3885,6 +3304,9 @@
               "type": "auto"
             },
             "filterable": false,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
           "mappings": [],
@@ -3950,28 +3372,20 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 67
+        "y": 60
       },
       "id": 88,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "editorMode": "code",
           "expr": "(time() - container_start_time_seconds{name=~\".+\"})/86400",
@@ -4032,7 +3446,7 @@
   ],
   "preload": false,
   "refresh": "30s",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [],
   "templating": {
     "list": []
@@ -4056,5 +3470,6 @@
   "timezone": "browser",
   "title": "Host & Docker Monitoring",
   "uid": "VKtkKcAVz",
-  "version": 40
+  "version": 4,
+  "weekStart": ""
 }

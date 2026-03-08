@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 28,
   "links": [],
   "panels": [
     {
@@ -44,7 +43,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
         "defaults": {
@@ -75,6 +74,7 @@
               "type": "linear"
             },
             "showPoints": "always",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -89,7 +89,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": 0
               },
               {
                 "color": "red",
@@ -127,12 +128,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.0.0",
+      "pluginVersion": "12.4.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "expr": "probe_duration_seconds",
           "format": "time_series",
@@ -161,10 +162,62 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "WTP-C6f7z"
+        "uid": "cfffdjuie13wgb"
       },
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
         "overrides": []
       },
       "gridPos": {
@@ -176,20 +229,30 @@
       "id": 1,
       "maxPerRow": 6,
       "options": {
-        "alertThreshold": true
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "12.4.0",
       "repeat": "instance",
       "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "expr": "sum by (phase) (probe_http_duration_seconds{instance=~\"$site\"})\n",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{phase}}",
@@ -199,7 +262,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "WTP-C6f7z"
+            "uid": "cfffdjuie13wgb"
           },
           "expr": "(1 - probe_success{instance=~\"$site\"} > 0)",
           "format": "time_series",
@@ -216,7 +279,7 @@
   ],
   "preload": false,
   "refresh": "1m",
-  "schemaVersion": 41,
+  "schemaVersion": 42,
   "tags": [
     "blackbox-exporter"
   ],
@@ -231,7 +294,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "WTP-C6f7z"
+          "uid": "cfffdjuie13wgb"
         },
         "definition": "",
         "includeAll": true,
@@ -245,6 +308,7 @@
         },
         "refresh": 1,
         "regex": "",
+        "regexApplyTo": "value",
         "type": "query"
       }
     ]
@@ -257,5 +321,6 @@
   "timezone": "browser",
   "title": "Uptime Dashboard",
   "uid": "8DKtWRfVk",
-  "version": 2
+  "version": 1,
+  "weekStart": ""
 }
