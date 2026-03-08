@@ -80,9 +80,6 @@ services:
     volumes:
       - "./prometheus:/etc/prometheus"
       - "${MONITORING_DATA_DIR}/prometheus/data:/prometheus"
-    links:
-      - cadvisor:cadvisor
-      - node-exporter:node-exporter
     depends_on:
       - cadvisor
       - node-exporter
@@ -98,8 +95,6 @@ services:
       - "${MONITORING_DATA_DIR}/grafana/provisioning:/etc/grafana/provisioning"
     ports:
       - "3000:3000/tcp"
-    links:
-      - prometheus:prometheus
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
