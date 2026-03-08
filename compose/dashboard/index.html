@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <title>Home server</title>
+
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      font: 18px/11px 'Verdana', sans-serif;
+    }
+
+    .wrap {
+      overflow: hidden;
+      margin: 10px;
+    }
+
+    .box {
+      float: left;
+      position: relative;
+      width: 20%;
+      padding-bottom: 20%;
+    }
+
+    .boxInner {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 10px;
+      bottom: 10px;
+      overflow: hidden;
+    }
+
+    .boxInner img {
+      width: 100%;
+    }
+
+    .boxInner .titleBox {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      background: rgba(25.1, 11.37, 13.73, 0.5);
+      color: white;
+      padding: 10px;
+      text-align: center;
+      -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -o-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+    }
+
+    body.no-touch .boxInner:hover .titleBox,
+    body.touch .boxInner.touchFocus .titleBox {
+      margin-bottom: 0;
+    }
+
+    @media only screen and (max-width : 480px) {
+      .box {
+        width: 100%;
+        padding-bottom: 100%;
+      }
+    }
+
+    @media only screen and (max-width : 650px) and (min-width : 481px) {
+      .box {
+        width: 50%;
+        padding-bottom: 50%;
+      }
+    }
+
+    @media only screen and (max-width : 1050px) and (min-width : 651px) {
+      .box {
+        width: 33.3%;
+        padding-bottom: 33.3%;
+      }
+    }
+
+    @media only screen and (max-width : 1290px) and (min-width : 1051px) {
+      .box {
+        width: 25%;
+        padding-bottom: 25%;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <script>
+    function open(port, path = '') {
+      var a = document.createElement('a');
+      a.href = "http://" + window.location.hostname + ":" + port + path;
+      a.rel = 'noreferrer';
+      a.target = '_self';
+      a.click();
+    };
+  </script>
+
+  <div class="wrap">
+
+    <!-- Define all of the tiles: -->
+    <div class="box">
+      <a href="https://github.com/dzahariev/home-lab">
+        <div class="boxInner">
+          <img src="images/raspberrypi4.png" alt="About"/>
+          <div class="titleBox">About</div>
+        </div>
+      </a>
+    </div>
+    <div class="box">
+      <a href="javascript:open('3000');">
+        <div class="boxInner">
+          <img src="images/grafana.png" alt="Grafana"/>
+          <div class="titleBox">Grafana</div>
+        </div>
+      </a>
+    </div>
+    <div class="box">
+      <a href="javascript:open('8080');">
+        <div class="boxInner">
+          <img src="images/files.png" alt="File Browser"/>
+          <div class="titleBox">File Browser</div>
+        </div>
+      </a>
+    </div>
+    <div class="box">
+      <a href="javascript:open('8081','/admin');">
+        <div class="boxInner">
+          <img src="images/pihole.png" alt="Pi Hole"/>
+          <div class="titleBox">Pi Hole</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>
