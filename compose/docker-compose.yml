@@ -124,7 +124,6 @@ services:
     image: pihole/pihole:2026.02.0
     container_name: pihole
     restart: always
-      - homelab
     volumes:
       - "${MONITORING_DATA_DIR}/pihole/etc_pihole:/etc/pihole"
       - "${MONITORING_DATA_DIR}/pihole/etc_dnsmasq.d:/etc/dnsmasq.d"
