@@ -33,11 +33,11 @@ Monthly scheduled updates and restart if required managed by cron + `maintenance
 
 Cron config:
 ```
-# crontab -e
+# sudo crontab -e
 ```
 Add the line:
 ```
-0 4 * * 6 /home/ubuntu/home-lab/compose/scripts/maintenance.sh 2>&1 | /home/ubuntu/home-lab/compose/scripts/timestamp.sh >> /home/ubuntu/logs/maintenance.log
+0 2 15 * * /home/ubuntu/home-lab/compose/scripts/maintenance.sh 2>&1 | /home/ubuntu/home-lab/compose/scripts/timestamp.sh >> /home/ubuntu/logs/maintenance.log
 ```
 
 Execution is at [At 04:00 on Saturday](https://crontab.guru/#0_4_*_*_6). Logs are in `/home/ubuntu/logs/maintenance.log`.
@@ -54,6 +54,32 @@ Enable log rotation by creating a file `/etc/logrotate.d/server.maintenance` wit
         notifempty
 }
 ```
+## Backups
+Daily scheduled backup managed by cron + `backup.sh`.
+The server that is backed up need to provide a folder with backup and a file named `lastFullArchive` taht have the path to the folder that contains the archive.
+
+Cron config:
+```
+# crontab -e
+```
+Add the line:
+```
+0 2 * * * SSHPASS="secretpwd" REMOTE_USER="serveruser" REMOTE_HOST="domain.com" REMOTE_BASE="/backup" LOCAL_BASE="/backups/domain" /backups/scripts/backup.sh 2>&1 | /backups/scripts/timestamp.sh >> /backups/domain/logs/backup.log
+```
+
+Enable log rotation by creating a file `/etc/logrotate.d/backup.domain` with content:
+```
+/backups/domain/logs/backup.log {
+        monthly
+        copytruncate
+        missingok
+        rotate 12
+        compress
+        delaycompress
+        notifempty
+}
+```
+
 ## Prepare
 Adjust the .env file content by setting the base folder, domain, and secrets, or create a new file named .env.server and use it instead.
 
