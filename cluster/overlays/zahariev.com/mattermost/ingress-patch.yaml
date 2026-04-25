@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mattermost
+  namespace: mattermost
+spec:
+  rules:
+  - host: mattermost.zahariev.com
+  tls:
+  - hosts:
+    - mattermost.zahariev.com

@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: georgi
+  namespace: georgi
+spec:
+  rules:
+  - host: georgi.zahariev.com
+  tls:
+  - hosts:
+    - georgi.zahariev.com

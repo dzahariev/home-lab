@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: invval
+  namespace: invval
+spec:
+  type: ClusterIP
+  selector:
+    app: invval
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http

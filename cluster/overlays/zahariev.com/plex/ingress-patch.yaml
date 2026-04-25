@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: plex
+  namespace: plex
+spec:
+  rules:
+  - host: plex.zahariev.com
+  tls:
+  - hosts:
+    - plex.zahariev.com

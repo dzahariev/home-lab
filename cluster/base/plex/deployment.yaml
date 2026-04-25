@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex
+  namespace: plex
+  labels:
+    app: plex
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      terminationGracePeriodSeconds: 120
+      nodeSelector:
+        node-role.kubernetes.io/gpu: "true"
+        node-role.kubernetes.io/storage: "true"
+      containers:
+      - name: plex
+        image: plexinc/pms-docker:1.43.0.10492-121068a07
+        ports:
+        - containerPort: 32400
+          name: pms
+        resources:
+          limits:
+            gpu.intel.com/i915: "1"
+        env:
+        - name: TZ
+          value: "Europe/Sofia"
+        - name: PLEX_UID
+          value: "1000"
+        - name: PLEX_GID
+          value: "1000"
+        - name: ADVERTISE_IP
+          value: "https://plex.example.com:443"
+        - name: PLEX_CLAIM
+          valueFrom:
+            secretKeyRef:
+              name: plex-secrets
+              key: claim-token
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: transcode
+          mountPath: /transcode
+        - name: media
+          mountPath: /media
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: plex-config
+      - name: transcode
+        emptyDir: {}
+      - name: media
+        persistentVolumeClaim:
+          claimName: plex-media

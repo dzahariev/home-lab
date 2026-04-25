@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: handbrake-worker
+  namespace: workers
+  labels:
+    app: handbrake-worker
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: handbrake-worker
+  template:
+    metadata:
+      labels:
+        app: handbrake-worker
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/gpu: "true"
+        node-role.kubernetes.io/storage: "true"
+      containers:
+      - name: handbrake-worker
+        image: dzahariev/handbrake-worker:3.6
+        resources:
+          limits:
+            gpu.intel.com/i915: "1"
+        volumeMounts:
+        - name: tasks
+          mountPath: /tasks
+        - name: input
+          mountPath: /input
+        - name: output
+          mountPath: /output
+      volumes:
+      - name: tasks
+        persistentVolumeClaim:
+          claimName: workers-tasks
+      - name: input
+        persistentVolumeClaim:
+          claimName: workers-handbrake-input
+      - name: output
+        persistentVolumeClaim:
+          claimName: workers-handbrake-output

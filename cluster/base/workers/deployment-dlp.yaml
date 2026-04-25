@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dlp-worker
+  namespace: workers
+  labels:
+    app: dlp-worker
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: dlp-worker
+  template:
+    metadata:
+      labels:
+        app: dlp-worker
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/storage: "true"
+      containers:
+      - name: dlp-worker
+        image: dzahariev/dlp-worker:1.7
+        volumeMounts:
+        - name: tasks
+          mountPath: /tasks
+        - name: downloads
+          mountPath: /output
+      volumes:
+      - name: tasks
+        persistentVolumeClaim:
+          claimName: workers-tasks
+      - name: downloads
+        persistentVolumeClaim:
+          claimName: workers-downloads

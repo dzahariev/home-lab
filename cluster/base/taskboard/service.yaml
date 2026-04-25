@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskboard
+  namespace: taskboard
+spec:
+  type: ClusterIP
+  selector:
+    app: taskboard
+  ports:
+  - port: 8800
+    targetPort: 8800
+    protocol: TCP
+    name: http
