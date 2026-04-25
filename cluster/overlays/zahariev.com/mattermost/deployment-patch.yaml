@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mattermost
+  namespace: mattermost
+spec:
+  template:
+    spec:
+      containers:
+      - name: mattermost
+        env:
+        - name: MM_SERVICESETTINGS_SITEURL
+          value: "https://mattermost.zahariev.com"

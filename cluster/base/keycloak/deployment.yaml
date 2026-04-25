@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: keycloak/keycloak:26.5.2
+        args: [ "start" ]
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: KC_DB
+          value: "postgres"
+        - name: KC_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-db-secrets
+              key: db-user
+        - name: KC_DB_URL_PORT
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-db-secrets
+              key: db-port
+        - name: KC_DB_URL_HOST
+          value: "keycloakdb"
+        - name: KC_DB_URL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-db-secrets
+              key: db-name
+        - name: KC_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-db-secrets
+              key: db-password
+        - name: KC_DB_SCHEMA
+          value: "public"
+        - name: KC_HOSTNAME
+          value: "auth.example.com"
+        - name: KC_HTTP_ENABLED
+          value: "true"
+        - name: KC_PROXY_HEADERS
+          value: "xforwarded"
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: KC_BOOTSTRAP_ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-db-secrets
+              key: admin-user
+        - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-db-secrets
+              key: admin-password
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 9000
+          initialDelaySeconds: 60
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 60
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 9000
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          timeoutSeconds: 2
+          failureThreshold: 5

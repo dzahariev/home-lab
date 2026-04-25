@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskboard
+  namespace: taskboard
+  labels:
+    app: taskboard
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: taskboard
+  template:
+    metadata:
+      labels:
+        app: taskboard
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/storage: "true"
+      containers:
+      - name: taskboard
+        image: dzahariev/taskboard:1.25
+        ports:
+        - containerPort: 8800
+          name: http
+        env:
+        - name: AUTH_URL
+          value: "https://auth.example.com"
+        - name: AUTH_REALM
+          valueFrom:
+            secretKeyRef:
+              name: taskboard-secrets
+              key: realm
+        - name: AUTH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: taskboard-secrets
+              key: client-id
+        - name: AUTH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: taskboard-secrets
+              key: client-secret
+        volumeMounts:
+        - name: tasks
+          mountPath: /tasks
+        - name: keycloak-cfg
+          mountPath: /public/keycloak-cfg/keycloak.json
+          subPath: keycloak.json
+          readOnly: true
+        - name: configuration
+          mountPath: /tasks/configuration.json
+          subPath: configuration.json
+          readOnly: true
+      volumes:
+      - name: tasks
+        persistentVolumeClaim:
+          claimName: taskboard-tasks
+      - name: keycloak-cfg
+        configMap:
+          name: taskboard-keycloak-cfg
+      - name: configuration
+        configMap:
+          name: taskboard-configuration

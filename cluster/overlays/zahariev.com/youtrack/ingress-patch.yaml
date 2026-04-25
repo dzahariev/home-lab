@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: youtrack
+  namespace: youtrack
+spec:
+  rules:
+  - host: youtrack.zahariev.com
+  tls:
+  - hosts:
+    - youtrack.zahariev.com

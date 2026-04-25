@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filebrowser
+  namespace: filebrowser
+  labels:
+    app: filebrowser
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: filebrowser
+  template:
+    metadata:
+      labels:
+        app: filebrowser
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/storage: "true"
+      containers:
+      - name: filebrowser
+        image: filebrowser/filebrowser:v2.57.0
+        command:
+        - "--database"
+        - "/database/filebrowser.db"
+        ports:
+        - containerPort: 80
+          name: http
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/Sofia"
+        volumeMounts:
+        - name: data
+          mountPath: /database
+        - name: media
+          mountPath: /srv
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: filebrowser-data
+      - name: media
+        persistentVolumeClaim:
+          claimName: filebrowser-media

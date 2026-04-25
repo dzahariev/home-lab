@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashboard
+  namespace: dashboard
+spec:
+  rules:
+  - host: zahariev.com
+  - host: www.zahariev.com
+  tls:
+  - hosts:
+    - zahariev.com
+    - www.zahariev.com

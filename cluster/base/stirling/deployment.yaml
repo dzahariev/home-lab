@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stirling
+  namespace: stirling
+  labels:
+    app: stirling
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: stirling
+  template:
+    metadata:
+      labels:
+        app: stirling
+    spec:
+      containers:
+      - name: stirling
+        image: stirlingtools/stirling-pdf:2.4.5
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: SECURITY_ENABLELOGIN
+          value: "true"
+        - name: LANGS
+          value: "en_GB"
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/tessdata
+          subPath: trainingData
+        - name: data
+          mountPath: /configs
+          subPath: extraConfigs
+        - name: data
+          mountPath: /customFiles
+          subPath: customFiles
+        - name: data
+          mountPath: /logs
+          subPath: logs
+        - name: data
+          mountPath: /pipeline
+          subPath: pipeline
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: stirling-data

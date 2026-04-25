@@ -1,11 +1,11 @@
 # Compose 
-## Hardware 
-Raspberry Pi 4 with 8GB RAM booting from SSD drive
+Apps and services that are best to be run on bare metal or using docker-compose stack outside of the k8s cluster, on separate hardware that is not CPU hungry, but is power efficient.
 
-## Storage 
-Two drives are attached:
- - 512 GB SSD - for OS and containers
- - 1 TB SSD - for TimeMachine backups and remote systems backup
+## Hardware 
+
+| Node | Name | RAM | OS Disk | Storage |
+|---|---|---|---|---|
+| Raspberry Pi 4 | Chronos | 8 GB | 512 GB SSD | 1 TB SSD (TimeMachine + Backups) |
 
 ## OS
 Ubuntu 24.04

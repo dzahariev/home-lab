@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard
+  namespace: dashboard
+  labels:
+    app: dashboard
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: dashboard
+  template:
+    metadata:
+      labels:
+        app: dashboard
+    spec:
+      initContainers:
+      - name: fetch-content
+        image: alpine/git
+        command:
+        - /bin/sh
+        - -c
+        - |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/dzahariev/home-lab.git /tmp/repo
+          cd /tmp/repo
+          git sparse-checkout set cluster/base/dashboard/www
+          cp -r cluster/base/dashboard/www/* /data/
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      containers:
+      - name: nginx
+        image: nginx:alpine-slim
+        ports:
+        - containerPort: 80
+          name: http
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/nginx/html
+          readOnly: true
+      volumes:
+      - name: data
+        emptyDir: {}

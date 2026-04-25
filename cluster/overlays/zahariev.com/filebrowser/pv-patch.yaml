@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: filebrowser-data-pv
+spec:
+  nfs:
+    server: 192.168.0.55
+    path: /mnt/data/filebrowser/data
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: filebrowser-media-pv
+spec:
+  local:
+    path: /media
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - atlas

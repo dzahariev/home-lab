@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: changedetection
+  namespace: changedetection
+spec:
+  template:
+    spec:
+      containers:
+      - name: changedetection
+        env:
+        - name: BASE_URL
+          value: "https://changedetection.zahariev.com"

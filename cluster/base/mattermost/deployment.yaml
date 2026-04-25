@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mattermost
+  namespace: mattermost
+  labels:
+    app: mattermost
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mattermost
+  template:
+    metadata:
+      labels:
+        app: mattermost
+    spec:
+      securityContext:
+        fsGroup: 2000
+      containers:
+      - name: mattermost
+        image: mattermost/mattermost-team-edition:11.4.0
+        ports:
+        - containerPort: 8065
+          name: http
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: TZ
+          value: "Europe/Sofia"
+        - name: MM_SQLSETTINGS_DRIVERNAME
+          value: "postgres"
+        - name: MM_SQLSETTINGS_DATASOURCE
+          valueFrom:
+            secretKeyRef:
+              name: mattermost-db-secrets
+              key: datasource
+        - name: MM_BLEVESETTINGS_INDEXDIR
+          value: "/mattermost/bleve-indexes"
+        - name: MM_SERVICESETTINGS_SITEURL
+          value: "https://mattermost.example.com"
+        volumeMounts:
+        - name: data
+          mountPath: /mattermost/config
+          subPath: config
+        - name: data
+          mountPath: /mattermost/data
+          subPath: data
+        - name: data
+          mountPath: /mattermost/logs
+          subPath: logs
+        - name: data
+          mountPath: /mattermost/plugins
+          subPath: plugins
+        - name: data
+          mountPath: /mattermost/client/plugins
+          subPath: client/plugins
+        - name: data
+          mountPath: /mattermost/bleve-indexes
+          subPath: bleve-indexes
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: mattermost-data
+      - name: tmp
+        emptyDir: {}

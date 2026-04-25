@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskboard
+  namespace: taskboard
+spec:
+  template:
+    spec:
+      containers:
+      - name: taskboard
+        env:
+        - name: AUTH_URL
+          value: "https://auth.zahariev.com"

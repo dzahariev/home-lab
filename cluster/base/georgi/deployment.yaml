@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: georgi
+  namespace: georgi
+  labels:
+    app: georgi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: georgi
+  template:
+    metadata:
+      labels:
+        app: georgi
+    spec:
+      containers:
+      - name: georgi
+        image: georgizahariev/portfolio:0.0.6
+        ports:
+        - containerPort: 8080
+          name: http

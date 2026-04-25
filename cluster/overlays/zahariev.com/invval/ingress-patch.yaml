@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: invval
+  namespace: invval
+spec:
+  rules:
+  - host: invval.zahariev.com
+  tls:
+  - hosts:
+    - invval.zahariev.com

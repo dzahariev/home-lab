@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: youtrack
+  namespace: youtrack
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: youtrack.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: youtrack
+            port:
+              number: 8080
+  tls:
+  - hosts:
+    - youtrack.example.com
+    secretName: youtrack-tls

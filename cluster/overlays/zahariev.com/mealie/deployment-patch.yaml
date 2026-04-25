@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mealie
+  namespace: mealie
+spec:
+  template:
+    spec:
+      containers:
+      - name: mealie
+        env:
+        - name: BASE_URL
+          value: "https://mealie.zahariev.com"

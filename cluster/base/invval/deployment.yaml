@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invval
+  namespace: invval
+  labels:
+    app: invval
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: invval
+  template:
+    metadata:
+      labels:
+        app: invval
+    spec:
+      containers:
+      - name: invval
+        image: dzahariev/invval:4.1
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: KEYCLOAK_URL
+          value: "https://auth.example.com"
+        - name: REALM
+          valueFrom:
+            secretKeyRef:
+              name: invval-secrets
+              key: realm
+        - name: CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: invval-secrets
+              key: client-id
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: invval-secrets
+              key: client-secret
+        - name: BASE_URL
+          value: "https://invval.example.com"
+        - name: TZ
+          value: "Europe/Sofia"

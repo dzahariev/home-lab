@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taskboard
+  namespace: taskboard
+spec:
+  rules:
+  - host: taskboard.zahariev.com
+  tls:
+  - hosts:
+    - taskboard.zahariev.com
