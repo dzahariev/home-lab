@@ -12,5 +12,8 @@
   "automergeType": "pr",
   "prCreation": "immediate",
   "prHourlyLimit": 0,
-  "ignoreTests": true
+  "ignoreTests": true,
+  "kubernetes": {
+    "fileMatch": ["(^|/)cluster/.+\\.yaml$"]
+  }
 }
