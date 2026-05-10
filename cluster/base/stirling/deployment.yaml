@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: stirling
-        image: stirlingtools/stirling-pdf:2.4.5
+        image: stirlingtools/stirling-pdf:2.10.1
         ports:
         - containerPort: 8080
           name: http
