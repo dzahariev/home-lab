@@ -152,7 +152,7 @@ services:
 
   # PiHole container
   pihole:
-    image: pihole/pihole:2026.04.1
+    image: pihole/pihole:2026.05.0
     container_name: pihole
     restart: always
     volumes:
