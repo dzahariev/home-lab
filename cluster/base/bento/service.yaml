@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: stirling
-  namespace: stirling
+  name: bento
+  namespace: bento
 spec:
   type: ClusterIP
   selector:
-    app: stirling
+    app: bento
   ports:
   - port: 8080
     targetPort: 8080

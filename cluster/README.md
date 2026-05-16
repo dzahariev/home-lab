@@ -113,7 +113,6 @@ sudo apt install nfs-common
 | filebrowser | `/data/filebrowser/data` |
 | freshrss | `/data/freshrss` |
 | mealie | `/data/mealie` |
-| stirling | `/data/stirling` |
 | workers | `/media/tasks` |
 | youtrack | `/data/youtrack` |
 
