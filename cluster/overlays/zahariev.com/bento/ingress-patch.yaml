@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bento
+  namespace: bento
+spec:
+  rules:
+  - host: bento.zahariev.com
+  tls:
+  - hosts:
+    - bento.zahariev.com
