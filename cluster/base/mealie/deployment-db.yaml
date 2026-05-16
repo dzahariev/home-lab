@@ -21,7 +21,7 @@ spec:
         node-role.kubernetes.io/storage: "true"
       containers:
       - name: postgres
-        image: postgres:17.5-alpine3.20
+        image: postgres:18.4-alpine3.22
         args: [ "-p", "$(DB_PORT)" ]
         ports:
         - containerPort: 5432
@@ -59,7 +59,7 @@ spec:
           failureThreshold: 10
         volumeMounts:
         - name: data
-          mountPath: /var/lib/postgresql/data
+          mountPath: /var/lib/postgresql
       volumes:
       - name: data
         persistentVolumeClaim:
