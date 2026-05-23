@@ -4,9 +4,9 @@
 
 set -euo pipefail
 
-ARGOCD_VERSION="v3.3.6"
+ARGOCD_VERSION="v3.4.2"
 ARGOCD_NAMESPACE="argocd"
-CERT_MANAGER_VERSION="v1.20.1"
+CERT_MANAGER_VERSION="v1.20.2"
 
 echo "Installing cert-manager ${CERT_MANAGER_VERSION}..."
 kubectl apply -f "https://github.com/cert-manager/cert-manager/releases/download/${CERT_MANAGER_VERSION}/cert-manager.yaml"
@@ -19,7 +19,8 @@ echo "Creating ArgoCD namespace..."
 kubectl create namespace "$ARGOCD_NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
 
 echo "Installing ArgoCD ${ARGOCD_VERSION}..."
-kubectl apply -n "$ARGOCD_NAMESPACE" -f "https://raw.githubusercontent.com/argoproj/argo-cd/${ARGOCD_VERSION}/manifests/install.yaml"
+kubectl apply -n "$ARGOCD_NAMESPACE" --server-side --force-conflicts -f "https://raw.githubusercontent.com/argoproj/argo-cd/${ARGOCD_VERSION}/manifests/install.yaml"
+    
 
 echo "Waiting for ArgoCD to be ready..."
 kubectl -n "$ARGOCD_NAMESPACE" rollout status deployment argocd-server --timeout=300s

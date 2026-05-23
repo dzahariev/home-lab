@@ -5,8 +5,7 @@ K8s cluster part of the lab
 
 | Node | Name | RAM | OS Disk | Storage |
 |---|---|---|---|---|
-| Mac Mini 2018 | Atlas | 16 GB | 256 GB SSD | 4 TB SSD (Local), 1 TB SSD (NFS) |
-| Mac Mini 2012 | Hyperion | 16 GB | 512 GB SSD | — |
+| Mac Mini 2012 | Hyperion | 16 GB | 512 GB SSD | 4 TB SSD (Local) |
 
 ## OS
 Ubuntu 24.04
@@ -15,13 +14,13 @@ Ubuntu 24.04
 Exposes services to internet
 
 ## Responsibilities
-K3s based kubernetes cluster with 2 nodes that runs on bare metal.
+K3s based kubernetes cluster with 1 node that run on bare metal.
 
 ## Networking
 
 ### DNS
 
-Configure a wildcard DNS record pointing to the Mac Mini 2018 (atlas) IP address:
+Configure a wildcard DNS record pointing to the Mac Mini 2012 (hyperion) IP address:
 
 ```
 *.zahariev.com    A    192.168.0.55
@@ -32,7 +31,7 @@ This covers all service subdomains and the bare domain (dashboard). Adding new s
 
 ### Router Port Forwarding
 
-Forward the following ports from the router's WAN interface to 192.168.0.55 (atlas):
+Forward the following ports from the router's WAN interface to 192.168.0.55 (hyperion):
 
 | External Port | Internal IP | Internal Port | Protocol | Purpose |
 |---|---|---|---|---|
@@ -47,7 +46,7 @@ Prerequisites: Ubuntu 24.04 installed, network configured, SSH access to all nod
 
 ### 1. Install K3s
 
-On the first node (server):
+On the main node (server):
 
 ```bash
 curl -sfL https://get.k3s.io | sh -
@@ -74,7 +73,7 @@ kubectl get nodes
 
 ### 2. Configure NFS Exports
 
-The Mac Mini 2018 (192.168.0.55) serves NFS shares for application data that needs to be accessible from both nodes.
+On Machine (192.168.0.55) that serves NFS shares for application data that needs to be accessible from all nodes.
 
 Install NFS server:
 
@@ -130,13 +129,13 @@ sudo apt install nfs-common
 
 ### 3. Label Nodes
 
-Label the Mac Mini 2018 node for GPU and storage workloads:
+Label the node for GPU and storage workloads:
 
 ```bash
-./label-atlas-node.sh
+./label-node.sh
 ```
 
-This applies the following labels to the `atlas` node:
+This applies the following labels to the `hyperion` node:
 - `node-role.kubernetes.io/gpu=true` — schedules GPU workloads (Plex, Handbrake)
 - `node-role.kubernetes.io/storage=true` — schedules storage-bound workloads (databases, media)
 
