@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: bento
-        image: bentopdfteam/bentopdf-simple:2.8.4
+        image: bentopdfteam/bentopdf-simple:2.8.5
         ports:
         - containerPort: 8080
           name: http
