@@ -255,3 +255,14 @@ The overlay name (e.g. `zahariev.com`) is optional when there is only one overla
 3. Run `diff` to review what changed in the final rendered output.
 4. Repeat steps 2–3 until satisfied.
 5. Commit your changes and run `clear` to remove the temporary files.
+
+
+#### Disable and enable back the k3s
+```
+sudo systemctl stop k3s.service
+sudo systemctl disable k3s.service
+sudo /usr/local/bin/k3s-killall.sh
+
+sudo systemctl enable k3s.service
+sudo systemctl start k3s.service
+```
