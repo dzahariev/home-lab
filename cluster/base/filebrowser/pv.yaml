@@ -25,6 +25,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: filebrowser
+    name: filebrowser-media
   storageClassName: local-storage
   local:
     path: /ssd

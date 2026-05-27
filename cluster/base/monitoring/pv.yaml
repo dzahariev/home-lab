@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: monitoring
+    name: prometheus-data
   storageClassName: local-storage
   local:
     path: /data/prometheus
@@ -32,6 +35,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: monitoring
+    name: loki-data
   storageClassName: local-storage
   local:
     path: /data/loki
@@ -55,6 +61,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: monitoring
+    name: grafana-data
   storageClassName: local-storage
   local:
     path: /data/grafana

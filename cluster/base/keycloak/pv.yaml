@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: keycloak
+    name: keycloak-db
   storageClassName: local-storage
   local:
     path: /data/keycloakdb

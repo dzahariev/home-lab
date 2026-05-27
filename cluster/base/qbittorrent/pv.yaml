@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: qbittorrent
+    name: qbittorrent-config
   storageClassName: local-storage
   local:
     path: /data/qbittorrent/config
@@ -32,6 +35,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: qbittorrent
+    name: qbittorrent-downloads
   storageClassName: local-storage
   local:
     path: /ssd/downloads

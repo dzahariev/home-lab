@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: mattermost
+    name: mattermost-db
   storageClassName: local-storage
   local:
     path: /data/mattermostdb
@@ -32,6 +35,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: mattermost
+    name: mattermost-data
   storageClassName: local-storage
   local:
     path: /data/mattermost

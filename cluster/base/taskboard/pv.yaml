@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: taskboard
+    name: taskboard-tasks
   storageClassName: local-storage
   local:
     path: /ssd/tasks
