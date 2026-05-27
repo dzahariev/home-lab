@@ -4,5 +4,5 @@ metadata:
   name: freshrss-config-pv
 spec:
   nfs:
-    server: 192.168.0.55
-    path: /mnt/data/freshrss
+    server: 192.168.0.176
+    path: /data/freshrss

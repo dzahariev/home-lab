@@ -4,5 +4,5 @@ metadata:
   name: youtrack-data-pv
 spec:
   nfs:
-    server: 192.168.0.55
-    path: /mnt/data/youtrack
+    server: 192.168.0.176
+    path: /data/youtrack

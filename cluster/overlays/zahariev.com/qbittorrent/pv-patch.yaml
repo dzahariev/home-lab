@@ -12,7 +12,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -20,7 +20,7 @@ metadata:
   name: qbittorrent-downloads-pv
 spec:
   local:
-    path: /media/downloads
+    path: /ssd/downloads
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -28,4 +28,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion

@@ -4,8 +4,8 @@ metadata:
   name: mealie-data-pv
 spec:
   nfs:
-    server: 192.168.0.55
-    path: /mnt/data/mealie
+    server: 192.168.0.176
+    path: /data/mealie
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -21,4 +21,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion

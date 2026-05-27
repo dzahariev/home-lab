@@ -4,8 +4,8 @@ metadata:
   name: filebrowser-data-pv
 spec:
   nfs:
-    server: 192.168.0.55
-    path: /mnt/data/filebrowser/data
+    server: 192.168.0.176
+    path: /data/filebrowser/data
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -13,7 +13,7 @@ metadata:
   name: filebrowser-media-pv
 spec:
   local:
-    path: /media
+    path: /ssd
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -21,4 +21,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion

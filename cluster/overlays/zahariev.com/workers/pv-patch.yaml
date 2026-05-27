@@ -4,8 +4,8 @@ metadata:
   name: workers-tasks-pv
 spec:
   nfs:
-    server: 192.168.0.55
-    path: /mnt/media/tasks
+    server: 192.168.0.176
+    path: /ssd/tasks
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -13,7 +13,7 @@ metadata:
   name: workers-handbrake-input-pv
 spec:
   local:
-    path: /media/handbrake/input
+    path: /ssd/handbrake/input
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -21,7 +21,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -29,7 +29,7 @@ metadata:
   name: workers-handbrake-output-pv
 spec:
   local:
-    path: /media/handbrake/output
+    path: /ssd/handbrake/output
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -37,7 +37,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -45,7 +45,7 @@ metadata:
   name: workers-downloads-pv
 spec:
   local:
-    path: /media/downloads
+    path: /ssd/downloads
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -53,4 +53,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion

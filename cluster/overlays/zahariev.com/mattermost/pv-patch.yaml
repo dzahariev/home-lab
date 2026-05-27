@@ -12,7 +12,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -28,4 +28,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - atlas
+          - hyperion
