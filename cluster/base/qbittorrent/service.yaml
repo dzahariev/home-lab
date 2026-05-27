@@ -19,17 +19,15 @@ metadata:
   name: qbittorrent-torrenting
   namespace: qbittorrent
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: qbittorrent
   ports:
   - port: 6881
     targetPort: 6881
-    nodePort: 6881
     protocol: TCP
     name: torrenting
   - port: 6881
     targetPort: 6881
-    nodePort: 6881
     protocol: UDP
     name: torrenting-udp

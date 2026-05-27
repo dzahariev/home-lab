@@ -26,9 +26,11 @@ spec:
         - containerPort: 8080
           name: webui
         - containerPort: 6881
+          hostPort: 6881
           name: torrenting
           protocol: TCP
         - containerPort: 6881
+          hostPort: 6881
           name: torrenting-udp
           protocol: UDP
         env:
