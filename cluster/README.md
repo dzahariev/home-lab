@@ -23,20 +23,20 @@ K3s based kubernetes cluster with 1 node that run on bare metal.
 Configure a wildcard DNS record pointing to the Mac Mini 2012 (hyperion) IP address:
 
 ```
-*.zahariev.com    A    192.168.0.55
-zahariev.com      A    192.168.0.55
+*.zahariev.com    A    192.168.0.176
+zahariev.com      A    192.168.0.176
 ```
 
 This covers all service subdomains and the bare domain (dashboard). Adding new services requires no DNS changes.
 
 ### Router Port Forwarding
 
-Forward the following ports from the router's WAN interface to 192.168.0.55 (hyperion):
+Forward the following ports from the router's WAN interface to 192.168.0.176 (hyperion):
 
 | External Port | Internal IP | Internal Port | Protocol | Purpose |
 |---|---|---|---|---|
-| 80 | 192.168.0.55 | 80 | TCP | Let's Encrypt HTTP-01 challenges (cert-manager) |
-| 443 | 192.168.0.55 | 443 | TCP | HTTPS traffic for all services |
+| 80 | 192.168.0.176 | 80 | TCP | Let's Encrypt HTTP-01 challenges (cert-manager) |
+| 443 | 192.168.0.176 | 443 | TCP | HTTPS traffic for all services |
 
 The nginx ingress controller (included with K3s) listens on ports 80 and 443 and routes requests to the correct service based on the `Host` header.
 
@@ -73,7 +73,7 @@ kubectl get nodes
 
 ### 2. Configure NFS Exports
 
-On Machine (192.168.0.55) that serves NFS shares for application data that needs to be accessible from all nodes.
+On Machine (192.168.0.176) that serves NFS shares for application data that needs to be accessible from all nodes.
 
 Install NFS server:
 
