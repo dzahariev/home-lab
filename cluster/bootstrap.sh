@@ -25,6 +25,11 @@ kubectl apply -n "$ARGOCD_NAMESPACE" --server-side --force-conflicts -f "https:/
 echo "Waiting for ArgoCD to be ready..."
 kubectl -n "$ARGOCD_NAMESPACE" rollout status deployment argocd-server --timeout=300s
 
+echo "Configuring ArgoCD server (insecure mode — TLS terminated by nginx ingress)..."
+kubectl apply -f "$(dirname "$0")/argocd/argocd-cmd-params-cm.yaml"
+kubectl -n "$ARGOCD_NAMESPACE" rollout restart deployment argocd-server
+kubectl -n "$ARGOCD_NAMESPACE" rollout status deployment argocd-server --timeout=300s
+
 echo "Applying root ApplicationSet..."
 kubectl apply -f "$(dirname "$0")/argocd/applicationset.yaml"
 
