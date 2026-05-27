@@ -12,7 +12,7 @@ spec:
   storageClassName: nfs-storage
   nfs:
     server: <nfs-server>
-    path: /media/tasks
+    path: /ssd/tasks
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -27,7 +27,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /media/handbrake/input
+    path: /ssd/handbrake/input
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -50,7 +50,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /media/handbrake/output
+    path: /ssd/handbrake/output
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -73,7 +73,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /media/downloads
+    path: /ssd/downloads
   nodeAffinity:
     required:
       nodeSelectorTerms:

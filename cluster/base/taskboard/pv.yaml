@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /media/tasks
+    path: /ssd/tasks
   nodeAffinity:
     required:
       nodeSelectorTerms:

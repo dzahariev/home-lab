@@ -27,7 +27,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /media
+    path: /ssd
   nodeAffinity:
     required:
       nodeSelectorTerms:

@@ -81,11 +81,25 @@ Install NFS server:
 sudo apt install nfs-kernel-server
 ```
 
+Add the following bind mounts to `/etc/fstab` to map the physical disk paths to short NFS export paths:
+
+```
+/media/ubuntu/HDD/Media/data   /data   none   bind   0   0
+/media/ubuntu/HDD/Media        /ssd    none   bind   0   0
+```
+
+Apply the bind mounts:
+
+```bash
+sudo mkdir -p /data /ssd
+sudo mount -a
+```
+
 Add the following exports to `/etc/exports`:
 
 ```
-/data         192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
-/media/tasks  192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
+/data   192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
+/ssd    192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
 ```
 
 Apply and verify:
@@ -112,7 +126,7 @@ sudo apt install nfs-common
 | filebrowser | `/data/filebrowser/data` |
 | freshrss | `/data/freshrss` |
 | mealie | `/data/mealie` |
-| workers | `/media/tasks` |
+| workers | `/ssd/tasks` |
 | youtrack | `/data/youtrack` |
 
 **Local volumes** (node-pinned, not shared):
@@ -122,10 +136,11 @@ sudo apt install nfs-common
 | keycloak | `/data/keycloakdb` |
 | mattermost | `/data/mattermost`, `/data/mattermostdb` |
 | mealie | `/data/mealiedb` |
-| plex | `/data/plex/config`, `/media` |
-| qbittorrent | `/data/qbittorrent/config`, `/media/downloads` |
-| filebrowser | `/media` |
-| workers | `/media/downloads`, `/media/handbrake/input`, `/media/handbrake/output` |
+| plex | `/data/plex/config`, `/ssd` |
+| qbittorrent | `/data/qbittorrent/config`, `/ssd/downloads` |
+| filebrowser | `/ssd` |
+| taskboard | `/ssd/tasks` |
+| workers | `/ssd/downloads`, `/ssd/handbrake/input`, `/ssd/handbrake/output` |
 
 ### 3. Label Nodes
 

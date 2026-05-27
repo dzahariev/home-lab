@@ -34,7 +34,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /media/downloads
+    path: /ssd/downloads
   nodeAffinity:
     required:
       nodeSelectorTerms:
