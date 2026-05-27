@@ -35,6 +35,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: mealie
+    name: mealie-data
   storageClassName: nfs-storage
   nfs:
     server: <nfs-server>

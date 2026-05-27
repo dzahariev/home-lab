@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: youtrack
+    name: youtrack-data
   storageClassName: nfs-storage
   nfs:
     server: <nfs-server>

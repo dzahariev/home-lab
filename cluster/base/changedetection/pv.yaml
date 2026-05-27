@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: changedetection
+    name: changedetection-data
   storageClassName: nfs-storage
   nfs:
     server: <nfs-server>

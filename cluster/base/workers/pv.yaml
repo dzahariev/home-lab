@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: workers
+    name: workers-tasks
   storageClassName: nfs-storage
   nfs:
     server: <nfs-server>

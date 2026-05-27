@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: filebrowser
+    name: filebrowser-data
   storageClassName: nfs-storage
   nfs:
     server: <nfs-server>

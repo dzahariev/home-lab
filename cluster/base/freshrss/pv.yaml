@@ -9,6 +9,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  claimRef:
+    namespace: freshrss
+    name: freshrss-config
   storageClassName: nfs-storage
   nfs:
     server: <nfs-server>

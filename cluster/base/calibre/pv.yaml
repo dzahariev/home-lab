@@ -8,8 +8,9 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs-storage
+  persistentVolumeReclaimPolicy: Retain  claimRef:
+    namespace: calibre
+    name: calibre-config  storageClassName: nfs-storage
   nfs:
     server: <nfs-server>
     path: /data/calibre
