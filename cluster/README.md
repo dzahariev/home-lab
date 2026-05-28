@@ -154,36 +154,7 @@ This applies the following labels to the `hyperion` node:
 - `node-role.kubernetes.io/gpu=true` — schedules GPU workloads (Plex, Handbrake)
 - `node-role.kubernetes.io/storage=true` — schedules storage-bound workloads (databases, media)
 
-### 4. Install cert-manager and ArgoCD
-
-Run the bootstrap script:
-
-```bash
-./bootstrap.sh
-```
-
-This installs:
-1. **cert-manager** — manages TLS certificates from Let's Encrypt for all ingresses
-2. **ArgoCD** — applies the root ApplicationSet that auto-discovers all services under `cluster/overlays/`
-
-Access the ArgoCD UI:
-
-```bash
-# Get the initial admin password
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
-```
-
-Once ArgoCD syncs the infrastructure overlay, the UI is available at https://argocd.zahariev.com.
-
-For local access before the ingress is ready:
-
-```bash
-kubectl port-forward svc/argocd-server -n argocd 8443:443
-```
-
-Then open https://localhost:8443.
-
-### 5. Create Secrets
+### 4. Create Secrets
 
 Secrets are managed outside of git. Each overlay has a `.env` file (gitignored) that holds all secret values.
 
@@ -204,6 +175,27 @@ Fill in the values in `overlays/zahariev.com/.env`, then run:
 ```
 
 This creates all Kubernetes secrets from the `.env` file. Run this before the first ArgoCD sync, or any time a secret value changes.
+
+### 5. Install cert-manager and ArgoCD
+
+Run the bootstrap script:
+
+```bash
+./bootstrap.sh
+```
+
+This installs:
+1. **cert-manager** — manages TLS certificates from Let's Encrypt for all ingresses
+2. **ArgoCD** — applies the root ApplicationSet that auto-discovers all services under `cluster/overlays/`
+
+Access the ArgoCD UI:
+
+```bash
+# Get the initial admin password
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
+```
+
+Once ArgoCD syncs the infrastructure overlay, the UI is available at https://argocd.zahariev.com.
 
 ## Updates
 
