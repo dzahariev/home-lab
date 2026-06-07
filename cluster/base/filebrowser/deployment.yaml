@@ -21,7 +21,7 @@ spec:
         node-role.kubernetes.io/storage: "true"
       containers:
       - name: filebrowser
-        image: filebrowser/filebrowser:v2.63.12
+        image: filebrowser/filebrowser:v2.63.13
         command:
         - "--database"
         - "/database/filebrowser.db"
