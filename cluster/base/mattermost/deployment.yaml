@@ -21,7 +21,7 @@ spec:
         fsGroup: 2000
       containers:
       - name: mattermost
-        image: mattermost/mattermost-team-edition:11.7.2
+        image: mattermost/mattermost-team-edition:11.8.0
         ports:
         - containerPort: 8065
           name: http
