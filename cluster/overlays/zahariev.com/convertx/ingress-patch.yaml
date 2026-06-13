@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - convertx.zahariev.com
+    secretName: convertx-tls

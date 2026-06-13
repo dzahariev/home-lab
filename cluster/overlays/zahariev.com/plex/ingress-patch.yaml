@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - plex.zahariev.com
+    secretName: plex-tls

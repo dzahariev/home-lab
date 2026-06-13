@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - qbittorrent.zahariev.com
+    secretName: qbittorrent-tls

@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - georgi.zahariev.com
+    secretName: georgi-tls

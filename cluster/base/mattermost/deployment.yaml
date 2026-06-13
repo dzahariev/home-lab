@@ -32,15 +32,34 @@ spec:
           value: "Europe/Sofia"
         - name: MM_SQLSETTINGS_DRIVERNAME
           value: "postgres"
-        - name: MM_SQLSETTINGS_DATASOURCE
+        - name: DB_USER
           valueFrom:
             secretKeyRef:
               name: mattermost-db-secrets
-              key: datasource
+              key: db-user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mattermost-db-secrets
+              key: db-password
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: mattermost-db-secrets
+              key: db-port
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mattermost-db-secrets
+              key: db-name
+        - name: MM_SQLSETTINGS_DATASOURCE
+          value: "postgres://$(DB_USER):$(DB_PASSWORD)@mattermostdb:$(DB_PORT)/$(DB_NAME)?sslmode=disable&connect_timeout=10"
         - name: MM_BLEVESETTINGS_INDEXDIR
           value: "/mattermost/bleve-indexes"
         - name: MM_SERVICESETTINGS_SITEURL
           value: "https://mattermost.example.com"
+        - name: MM_LOGSETTINGS_CONSOLELEVEL
+          value: "WARN"
         volumeMounts:
         - name: data
           mountPath: /mattermost/config

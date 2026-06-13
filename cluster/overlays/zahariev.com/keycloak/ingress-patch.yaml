@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - auth.zahariev.com
+    secretName: keycloak-tls

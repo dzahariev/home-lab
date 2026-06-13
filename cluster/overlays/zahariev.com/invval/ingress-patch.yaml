@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - invval.zahariev.com
+    secretName: invval-tls

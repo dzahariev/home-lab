@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - taskboard.zahariev.com
+    secretName: taskboard-tls

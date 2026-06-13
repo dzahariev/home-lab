@@ -80,6 +80,11 @@ for secret_name in $(echo "${!SECRET_ARGS[@]}" | tr ' ' '\n' | sort); do
     continue
   fi
 
+  if ! kubectl get namespace "$ns" &>/dev/null; then
+    echo "  Creating namespace: $ns"
+    kubectl create namespace "$ns"
+  fi
+
   args="${SECRET_ARGS[$secret_name]}"
   if kubectl create secret generic "$secret_name" \
     --namespace="$ns" \

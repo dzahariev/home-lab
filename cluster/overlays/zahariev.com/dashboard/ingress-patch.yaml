@@ -11,3 +11,4 @@ spec:
   - hosts:
     - zahariev.com
     - www.zahariev.com
+    secretName: dashboard-tls

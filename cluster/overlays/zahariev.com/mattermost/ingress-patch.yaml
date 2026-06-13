@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - mattermost.zahariev.com
+    secretName: mattermost-tls

@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - bento.zahariev.com
+    secretName: bento-tls

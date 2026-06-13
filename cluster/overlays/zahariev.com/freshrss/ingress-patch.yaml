@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - freshrss.zahariev.com
+    secretName: freshrss-tls

@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-ARGOCD_VERSION="v3.4.2"
+ARGOCD_VERSION="v3.4.3"
 ARGOCD_NAMESPACE="argocd"
 CERT_MANAGER_VERSION="v1.20.2"
 

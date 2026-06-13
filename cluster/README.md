@@ -188,7 +188,7 @@ This installs:
 1. **cert-manager** — manages TLS certificates from Let's Encrypt for all ingresses
 2. **ArgoCD** — applies the root ApplicationSet that auto-discovers all services under `cluster/overlays/`
 
-Access the ArgoCD UI:
+Credentials for ArgoCD UI:
 
 ```bash
 # Get the initial admin password

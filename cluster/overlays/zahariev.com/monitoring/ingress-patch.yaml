@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - grafana.zahariev.com
+    secretName: grafana-tls

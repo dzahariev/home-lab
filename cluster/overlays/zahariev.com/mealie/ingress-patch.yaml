@@ -9,3 +9,4 @@ spec:
   tls:
   - hosts:
     - mealie.zahariev.com
+    secretName: mealie-tls
