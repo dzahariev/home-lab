@@ -5,4 +5,53 @@ metadata:
   namespace: taskboard
 data:
   configuration.json: |
-    {}
+    {
+        "kinds": [
+            {
+                "name": "handbrake",
+                "presets": [
+                    {
+                        "name": "MKV-265-480P",
+                        "key": "mkv0480p265"
+                    },
+                    {
+                        "name": "MKV-265-576P",
+                        "key": "mkv0576p265"
+                    },
+                    {
+                        "name": "MKV-265-720P",
+                        "key": "mkv0720p265"
+                    },
+                    {
+                        "name": "MKV-265-1080P",
+                        "key": "mkv1080p265"
+                    }
+                ]
+            },
+            {
+                "name": "download",
+                "presets": [
+                    {
+                        "name": "128",
+                        "key": "MP3128"
+                    },
+                    {
+                        "name": "192",
+                        "key": "MP3192"
+                    },
+                    {
+                        "name": "320",
+                        "key": "MP3320"
+                    },
+                    {
+                        "name": "480P",
+                        "key": "MP4480P"
+                    },
+                    {
+                        "name": "720P",
+                        "key": "MP4720P"
+                    }
+                ]
+            }
+        ]
+    }

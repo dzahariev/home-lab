@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: taskboard-keycloak-cfg
+  namespace: taskboard
+data:
+  keycloak.json: |
+    {
+      "realm": "taskboard",
+      "auth-server-url": "https://auth.zahariev.com/",
+      "ssl-required": "external",
+      "resource": "taskboard-frontend-client",
+      "public-client": true,
+      "confidential-port": 0
+    }
