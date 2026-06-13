@@ -157,7 +157,7 @@ No test framework. Validation approaches:
 | dgtlmoon/changedetection.io:0.55.7 | Web change detection |
 | c4illin/convertx:v0.17.0 | File conversion |
 | nginx:alpine-slim | Static dashboard |
-| filebrowser/filebrowser:v2.63.14 | File browser |
+| filebrowser/filebrowser:v2.63.15 | File browser |
 | linuxserver/freshrss:1.29.1 | RSS reader |
 | georgizahariev/portfolio:0.0.6 | Portfolio site |
 | dzahariev/invval:4.1 | Investment validator |
@@ -171,7 +171,7 @@ No test framework. Validation approaches:
 | grafana/promtail:3.6.11 | Log shipping |
 | prom/node-exporter:v1.11.1 | Host metrics |
 | registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0 | K8s metrics |
-| plexinc/pms-docker:1.43.0.10492-121068a07 | Media server |
+| plexinc/pms-docker:1.43.2.10687-563d026ea | Media server |
 | linuxserver/qbittorrent:5.2.1 | Torrent client |
 | dzahariev/taskboard:1.25 | Task board |
 | dzahariev/dlp-worker:1.7 | Download worker |
@@ -191,7 +191,7 @@ No test framework. Validation approaches:
 | grafana/loki:3.7.2 | Log aggregation |
 | grafana/promtail:3.6.11 | Log shipping |
 | grafana/grafana:13.0.2 | Dashboards |
-| filebrowser/filebrowser:v2.63.14 | File browser |
+| filebrowser/filebrowser:v2.63.15 | File browser |
 | pihole/pihole:2026.05.0 | DNS ad-blocking |
 
 ### Infrastructure Dependencies
