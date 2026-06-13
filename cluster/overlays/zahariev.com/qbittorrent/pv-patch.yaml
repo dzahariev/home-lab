@@ -4,7 +4,7 @@ metadata:
   name: qbittorrent-config-pv
 spec:
   local:
-    path: /data/qbittorrent/config
+    path: /data/qbittorrent/data
   nodeAffinity:
     required:
       nodeSelectorTerms:
