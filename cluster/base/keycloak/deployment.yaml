@@ -55,6 +55,8 @@ spec:
           value: "auth.example.com"
         - name: KC_HTTP_ENABLED
           value: "true"
+        - name: KC_HEALTH_ENABLED
+          value: "true"
         - name: KC_PROXY_HEADERS
           value: "xforwarded"
         - name: PROXY_ADDRESS_FORWARDING
