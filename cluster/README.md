@@ -84,14 +84,15 @@ sudo apt install nfs-kernel-server
 Add the following bind mounts to `/etc/fstab` to map the physical disk paths to short NFS export paths:
 
 ```
-/media/ubuntu/HDD/Media/data   /data   none   bind   0   0
-/media/ubuntu/HDD/Media        /ssd    none   bind   0   0
+/media/ubuntu/HDD/Media/data   /data    none   bind   0   0
+/media/ubuntu/HDD/Media        /ssd     none   bind   0   0
+/media/ubuntu/HDD/mdata        /mdata   none   bind   0   0
 ```
 
 Apply the bind mounts:
 
 ```bash
-sudo mkdir -p /data /ssd
+sudo mkdir -p /data /ssd /mdata
 sudo mount -a
 ```
 
@@ -99,6 +100,7 @@ Add the following exports to `/etc/exports`:
 
 ```
 /data   192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
+/mdata   192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
 /ssd    192.168.0.0/24(rw,sync,no_subtree_check,no_root_squash)
 ```
 
@@ -128,6 +130,9 @@ sudo apt install nfs-common
 | mealie | `/data/mealie` |
 | workers | `/ssd/tasks` |
 | youtrack | `/data/youtrack` |
+| prometheus | `/mdata/prometheus` |
+| loki | `/mdata/loki` |
+| grafana | `/mdata/grafana` |
 
 **Local volumes** (node-pinned, not shared):
 

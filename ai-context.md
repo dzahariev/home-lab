@@ -217,7 +217,6 @@ No test framework. Validation approaches:
 | keycloak-db-secrets/db-port | Yes | — | Keycloak PostgreSQL port |
 | keycloak-db-secrets/admin-user | Yes | — | Keycloak admin username |
 | keycloak-db-secrets/admin-password | Yes | — | Keycloak admin password |
-| mattermost-db-secrets/datasource | Yes | — | Mattermost PostgreSQL connection string |
 | mattermost-db-secrets/db-name | Yes | — | Mattermost DB name |
 | mattermost-db-secrets/db-user | Yes | — | Mattermost DB user |
 | mattermost-db-secrets/db-password | Yes | — | Mattermost DB password |

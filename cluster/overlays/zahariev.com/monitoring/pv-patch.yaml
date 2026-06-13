@@ -3,45 +3,24 @@ kind: PersistentVolume
 metadata:
   name: prometheus-data-pv
 spec:
-  local:
-    path: /data/prometheus
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - hyperion
+  nfs:
+    server: 192.168.0.176
+    path: /mdata/prometheus
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: loki-data-pv
 spec:
-  local:
-    path: /data/loki
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - hyperion
+  nfs:
+    server: 192.168.0.176
+    path: /mdata/loki
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: grafana-data-pv
 spec:
-  local:
-    path: /data/grafana
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - hyperion
+  nfs:
+    server: 192.168.0.176
+    path: /mdata/grafana
