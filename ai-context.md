@@ -358,7 +358,6 @@ SSHPASS="x" REMOTE_USER="x" REMOTE_HOST="x" REMOTE_BASE="/x" LOCAL_BASE="/x" ./c
 - `traefik` — ingress class used across all ingresses
 - `cert-manager.io/cluster-issuer` — annotation triggering cert provisioning
 - `nfs-storage` / `local-storage` — StorageClass names
-- `node-role.kubernetes.io/gpu` — node selector label for GPU workloads
 - `node-role.kubernetes.io/storage` — node selector label for storage workloads
 - `hyperion` — the single K3s node name
 - `zahariev.com` — production domain (overlay patches)
@@ -377,7 +376,6 @@ SSHPASS="x" REMOTE_USER="x" REMOTE_HOST="x" REMOTE_BASE="/x" LOCAL_BASE="/x" ./c
 - `invval-secrets` — secret name for invval auth
 - `grafana-secrets` — secret name for Grafana admin
 - `plex-secrets` — secret name for Plex claim
-- `gpu.intel.com/i915` — GPU resource request key
 - `ServerSideApply=true` — sync option in ApplicationSet
 - `CreateNamespace=true` — sync option enabling namespace auto-creation
 - `bootstrap.sh` — one-time cluster setup script

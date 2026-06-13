@@ -151,7 +151,6 @@ Label the node for GPU and storage workloads:
 ```
 
 This applies the following labels to the `hyperion` node:
-- `node-role.kubernetes.io/gpu=true` — schedules GPU workloads (Plex, Handbrake)
 - `node-role.kubernetes.io/storage=true` — schedules storage-bound workloads (databases, media)
 
 ### 4. Create Secrets

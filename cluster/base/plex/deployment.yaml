@@ -19,7 +19,6 @@ spec:
     spec:
       terminationGracePeriodSeconds: 120
       nodeSelector:
-        node-role.kubernetes.io/gpu: "true"
         node-role.kubernetes.io/storage: "true"
       containers:
       - name: plex
@@ -27,9 +26,6 @@ spec:
         ports:
         - containerPort: 32400
           name: pms
-        resources:
-          limits:
-            gpu.intel.com/i915: "1"
         env:
         - name: TZ
           value: "Europe/Sofia"
