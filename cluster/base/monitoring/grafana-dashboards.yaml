@@ -265,3 +265,340 @@ data:
       "title": "Node Details",
       "uid": "node-details"
     }
+  k8s-resource-usage.json: |
+    {
+      "annotations": {"list": []},
+      "editable": true,
+      "graphTooltip": 1,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {"h": 1, "w": 24, "x": 0, "y": 0},
+          "id": 1,
+          "title": "CPU Usage",
+          "type": "row"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "cores"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 1},
+          "id": 2,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace) (rate(container_cpu_usage_seconds_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]))",
+              "legendFormat": "{{namespace}}"
+            }
+          ],
+          "title": "CPU by Namespace",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "cores"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 1},
+          "id": 3,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, deployment) (label_replace(rate(container_cpu_usage_seconds_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"ReplicaSet\"}, \"deployment\", \"$1\", \"owner_name\", \"^(.*)-[a-z0-9]+$\"))",
+              "legendFormat": "{{namespace}}/{{deployment}}"
+            }
+          ],
+          "title": "CPU by Deployment",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "cores"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 9},
+          "id": 4,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, owner_name) (rate(container_cpu_usage_seconds_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"StatefulSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}}"
+            }
+          ],
+          "title": "CPU by StatefulSet",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "cores"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 9},
+          "id": 5,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, owner_name) (rate(container_cpu_usage_seconds_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"DaemonSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}}"
+            }
+          ],
+          "title": "CPU by DaemonSet",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {"h": 1, "w": 24, "x": 0, "y": 17},
+          "id": 6,
+          "title": "Memory Usage",
+          "type": "row"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 18},
+          "id": 7,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace) (container_memory_working_set_bytes{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"})",
+              "legendFormat": "{{namespace}}"
+            }
+          ],
+          "title": "Memory by Namespace",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 18},
+          "id": 8,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, deployment) (label_replace(container_memory_working_set_bytes{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"} * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"ReplicaSet\"}, \"deployment\", \"$1\", \"owner_name\", \"^(.*)-[a-z0-9]+$\"))",
+              "legendFormat": "{{namespace}}/{{deployment}}"
+            }
+          ],
+          "title": "Memory by Deployment",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 26},
+          "id": 9,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, owner_name) (container_memory_working_set_bytes{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"} * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"StatefulSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}}"
+            }
+          ],
+          "title": "Memory by StatefulSet",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 26},
+          "id": 10,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, owner_name) (container_memory_working_set_bytes{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"} * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"DaemonSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}}"
+            }
+          ],
+          "title": "Memory by DaemonSet",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {"h": 1, "w": 24, "x": 0, "y": 34},
+          "id": 11,
+          "title": "Network I/O",
+          "type": "row"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 35},
+          "id": 12,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace) (rate(container_network_receive_bytes_total{node=~\"$node\", namespace=~\"$namespace\"}[5m]))",
+              "legendFormat": "{{namespace}} rx"
+            }
+          ],
+          "title": "Network Receive by Namespace",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 35},
+          "id": 13,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace) (rate(container_network_transmit_bytes_total{node=~\"$node\", namespace=~\"$namespace\"}[5m]))",
+              "legendFormat": "{{namespace}} tx"
+            }
+          ],
+          "title": "Network Transmit by Namespace",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 43},
+          "id": 14,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, deployment) (label_replace(rate(container_network_receive_bytes_total{node=~\"$node\", namespace=~\"$namespace\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"ReplicaSet\"}, \"deployment\", \"$1\", \"owner_name\", \"^(.*)-[a-z0-9]+$\"))",
+              "legendFormat": "{{namespace}}/{{deployment}} rx"
+            },
+            {
+              "expr": "sum by (namespace, deployment) (label_replace(rate(container_network_transmit_bytes_total{node=~\"$node\", namespace=~\"$namespace\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"ReplicaSet\"}, \"deployment\", \"$1\", \"owner_name\", \"^(.*)-[a-z0-9]+$\"))",
+              "legendFormat": "{{namespace}}/{{deployment}} tx"
+            }
+          ],
+          "title": "Network by Deployment",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 43},
+          "id": 15,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, owner_name) (rate(container_network_receive_bytes_total{node=~\"$node\", namespace=~\"$namespace\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"StatefulSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}} STS rx"
+            },
+            {
+              "expr": "sum by (namespace, owner_name) (rate(container_network_receive_bytes_total{node=~\"$node\", namespace=~\"$namespace\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"DaemonSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}} DS rx"
+            }
+          ],
+          "title": "Network by StatefulSet & DaemonSet",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {"h": 1, "w": 24, "x": 0, "y": 51},
+          "id": 16,
+          "title": "Disk I/O",
+          "type": "row"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 52},
+          "id": 17,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace) (rate(container_fs_reads_bytes_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]))",
+              "legendFormat": "{{namespace}} read"
+            }
+          ],
+          "title": "Disk Read by Namespace",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 52},
+          "id": 18,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace) (rate(container_fs_writes_bytes_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]))",
+              "legendFormat": "{{namespace}} write"
+            }
+          ],
+          "title": "Disk Write by Namespace",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 60},
+          "id": 19,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, deployment) (label_replace(rate(container_fs_reads_bytes_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"ReplicaSet\"}, \"deployment\", \"$1\", \"owner_name\", \"^(.*)-[a-z0-9]+$\"))",
+              "legendFormat": "{{namespace}}/{{deployment}} read"
+            },
+            {
+              "expr": "sum by (namespace, owner_name) (rate(container_fs_reads_bytes_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"StatefulSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}} STS read"
+            }
+          ],
+          "title": "Disk Read by Deployment & StatefulSet",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {"type": "prometheus", "uid": ""},
+          "fieldConfig": {"defaults": {"unit": "Bps"}, "overrides": []},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 60},
+          "id": 20,
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}},
+          "targets": [
+            {
+              "expr": "sum by (namespace, deployment) (label_replace(rate(container_fs_writes_bytes_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"ReplicaSet\"}, \"deployment\", \"$1\", \"owner_name\", \"^(.*)-[a-z0-9]+$\"))",
+              "legendFormat": "{{namespace}}/{{deployment}} write"
+            },
+            {
+              "expr": "sum by (namespace, owner_name) (rate(container_fs_writes_bytes_total{node=~\"$node\", namespace=~\"$namespace\", container!=\"\", container!=\"POD\"}[5m]) * on(namespace, pod) group_left(owner_name) kube_pod_owner{namespace=~\"$namespace\", owner_kind=\"StatefulSet\"})",
+              "legendFormat": "{{namespace}}/{{owner_name}} STS write"
+            }
+          ],
+          "title": "Disk Write by Deployment & StatefulSet",
+          "type": "timeseries"
+        }
+      ],
+      "refresh": "30s",
+      "schemaVersion": 39,
+      "tags": ["kubernetes", "resources", "namespaces", "workloads"],
+      "templating": {
+        "list": [
+          {
+            "current": {},
+            "datasource": {"type": "prometheus", "uid": ""},
+            "hide": 0,
+            "includeAll": true,
+            "label": "Node",
+            "multi": true,
+            "name": "node",
+            "options": [],
+            "query": {
+              "query": "label_values(kube_node_info, node)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 2,
+            "sort": 1,
+            "type": "query"
+          },
+          {
+            "current": {},
+            "datasource": {"type": "prometheus", "uid": ""},
+            "hide": 0,
+            "includeAll": true,
+            "label": "Namespace",
+            "multi": true,
+            "name": "namespace",
+            "options": [],
+            "query": {
+              "query": "label_values(kube_namespace_labels, namespace)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 2,
+            "sort": 1,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {"from": "now-1h", "to": "now"},
+      "title": "Kubernetes Resource Usage",
+      "uid": "k8s-resource-usage"
+    }
