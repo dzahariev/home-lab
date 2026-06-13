@@ -4,7 +4,7 @@ metadata:
   name: plex-config-pv
 spec:
   local:
-    path: /data/plex/config
+    path: /data/plex
   nodeAffinity:
     required:
       nodeSelectorTerms:
