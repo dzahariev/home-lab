@@ -567,6 +567,7 @@ data:
             "datasource": {"type": "prometheus", "uid": ""},
             "hide": 0,
             "includeAll": true,
+            "allValue": ".*",
             "label": "Node",
             "multi": true,
             "name": "node",
@@ -589,7 +590,7 @@ data:
             "name": "namespace",
             "options": [],
             "query": {
-              "query": "label_values(kube_namespace_labels, namespace)",
+              "query": "label_values(kube_namespace_status_phase, namespace)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 2,
