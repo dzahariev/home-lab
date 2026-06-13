@@ -6,6 +6,15 @@ metadata:
 spec:
   rules:
   - host: invval.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: invval
+            port:
+              number: 8080
   tls:
   - hosts:
     - invval.zahariev.com

@@ -6,6 +6,15 @@ metadata:
 spec:
   rules:
   - host: mattermost.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mattermost
+            port:
+              number: 8065
   tls:
   - hosts:
     - mattermost.zahariev.com

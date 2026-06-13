@@ -6,6 +6,15 @@ metadata:
 spec:
   rules:
   - host: files.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: filebrowser
+            port:
+              number: 80
   tls:
   - hosts:
     - files.zahariev.com

@@ -6,6 +6,15 @@ metadata:
 spec:
   rules:
   - host: plex.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: plex
+            port:
+              number: 32400
   tls:
   - hosts:
     - plex.zahariev.com

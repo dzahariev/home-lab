@@ -6,6 +6,15 @@ metadata:
 spec:
   rules:
   - host: georgi.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: georgi
+            port:
+              number: 8080
   tls:
   - hosts:
     - georgi.zahariev.com

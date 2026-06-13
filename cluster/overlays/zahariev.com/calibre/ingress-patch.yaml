@@ -6,6 +6,15 @@ metadata:
 spec:
   rules:
   - host: calibre.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: calibre
+            port:
+              number: 8081
   tls:
   - hosts:
     - calibre.zahariev.com

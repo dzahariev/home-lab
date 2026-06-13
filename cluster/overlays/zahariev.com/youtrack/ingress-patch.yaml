@@ -6,6 +6,15 @@ metadata:
 spec:
   rules:
   - host: youtrack.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: youtrack
+            port:
+              number: 8080
   tls:
   - hosts:
     - youtrack.zahariev.com
