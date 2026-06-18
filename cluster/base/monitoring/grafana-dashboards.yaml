@@ -625,7 +625,7 @@ data:
       "links": [],
       "panels": [
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "description": "Total Count of log lines in the specified time range",
           "fieldConfig": {
             "defaults": {
@@ -664,7 +664,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "direction": "backward",
               "editorMode": "code",
               "expr": "sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"})[$__interval]))",
@@ -677,7 +677,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "description": "Total Count of $searchable_pattern in the specified time range",
           "fieldConfig": {
             "defaults": {
@@ -716,7 +716,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
               "hide": false,
               "refId": "A"
@@ -726,7 +726,7 @@ data:
           "type": "stat"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "description": "Live logs is like 'tail -f' in real time",
           "fieldConfig": {"defaults": {}, "overrides": []},
           "gridPos": {"h": 9, "w": 24, "x": 0, "y": 3},
@@ -745,7 +745,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "{namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$searchable_pattern\" ",
               "hide": false,
               "refId": "A"
@@ -768,7 +768,7 @@ data:
           "type": "text"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "fieldConfig": {
             "defaults": {
               "color": {"mode": "palette-classic"},
@@ -800,7 +800,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"})[$__interval])) by (stream)",
               "hide": false,
               "refId": "A"
@@ -810,7 +810,7 @@ data:
           "type": "piechart"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "fieldConfig": {
             "defaults": {
               "color": {"mode": "palette-classic"},
@@ -834,7 +834,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$searchable_pattern\")[$__interval])) by (pod)",
               "refId": "A"
             }
@@ -843,7 +843,7 @@ data:
           "type": "piechart"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "fieldConfig": {
             "defaults": {
               "mappings": [
@@ -882,7 +882,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$searchable_pattern\")[$__interval])) * 100 / sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"})[$__interval]))",
               "hide": false,
               "refId": "A"
@@ -892,7 +892,7 @@ data:
           "type": "gauge"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "fieldConfig": {
             "defaults": {
               "color": {"mode": "palette-classic"},
@@ -940,7 +940,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$searchable_pattern\")[$__interval])) by (pod)",
               "refId": "A"
             }
@@ -949,7 +949,7 @@ data:
           "type": "timeseries"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "fieldConfig": {
             "defaults": {
               "color": {"mode": "palette-classic"},
@@ -995,7 +995,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "sum(rate(({namespace=~\"$namespace\", pod=~\"$pod\"} |~ \"(?i)$searchable_pattern\")[30s])) by (pod)",
               "hide": false,
               "refId": "A"
@@ -1005,7 +1005,7 @@ data:
           "type": "timeseries"
         },
         {
-          "datasource": {"type": "loki", "uid": "loki"},
+          "datasource": {"type": "loki", "uid": ""},
           "fieldConfig": {
             "defaults": {
               "color": {"mode": "palette-classic"},
@@ -1060,7 +1060,7 @@ data:
           "pluginVersion": "12.0.0",
           "targets": [
             {
-              "datasource": {"type": "loki", "uid": "loki"},
+              "datasource": {"type": "loki", "uid": ""},
               "expr": "sum(count_over_time(({namespace=~\"$namespace\", pod=~\"$pod\"})[$__interval])) by (stream)",
               "hide": false,
               "refId": "A"
@@ -1079,7 +1079,7 @@ data:
           {
             "allValue": ".+",
             "current": {"text": "All", "value": "$__all"},
-            "datasource": {"type": "loki", "uid": "loki"},
+            "datasource": {"type": "loki", "uid": ""},
             "definition": "",
             "includeAll": true,
             "label": "Namespace",
@@ -1099,7 +1099,7 @@ data:
           {
             "allValue": ".+",
             "current": {"text": "All", "value": "$__all"},
-            "datasource": {"type": "loki", "uid": "loki"},
+            "datasource": {"type": "loki", "uid": ""},
             "definition": "",
             "includeAll": true,
             "label": "Pod",
