@@ -118,7 +118,7 @@ start_k3s() {
 }
 
 echo "Get updates from GitHub ..."
-cd /home/helios/home-server
+cd /home/helios/home-lab
 git pull
 
 echo "Stops k3s ..."
