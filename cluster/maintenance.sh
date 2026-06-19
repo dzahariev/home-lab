@@ -119,6 +119,7 @@ start_k3s() {
 
 echo "Get updates from GitHub ..."
 cd /home/helios/home-lab
+sudo git config --global --add safe.directory /home/helios/home-lab
 git pull
 
 echo "Stops k3s ..."
