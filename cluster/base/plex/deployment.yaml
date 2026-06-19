@@ -20,6 +20,10 @@ spec:
       terminationGracePeriodSeconds: 120
       nodeSelector:
         node-role.kubernetes.io/storage: "true"
+      securityContext:
+        supplementalGroups:
+        - 44 # video group - owns /dev/dri/card*
+        - 993 # render group - owns /dev/dri/renderD*
       containers:
       - name: plex
         image: plexinc/pms-docker:1.43.2.10687-563d026ea
