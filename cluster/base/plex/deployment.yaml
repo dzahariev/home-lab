@@ -61,4 +61,4 @@ spec:
       - name: dri
         hostPath:
           path: /dev/dri
-          type: Device
+          type: Directory
