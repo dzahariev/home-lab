@@ -47,6 +47,8 @@ spec:
           mountPath: /transcode
         - name: media
           mountPath: /media
+        - name: dri
+          mountPath: /dev/dri
       volumes:
       - name: config
         persistentVolumeClaim:
@@ -56,3 +58,7 @@ spec:
       - name: media
         persistentVolumeClaim:
           claimName: plex-media
+      - name: dri
+        hostPath:
+          path: /dev/dri
+          type: Device
