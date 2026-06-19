@@ -117,6 +117,10 @@ start_k3s() {
     return 1
 }
 
+echo "Get updates from GitHub ..."
+cd /home/helios/home-server
+git pull
+
 echo "Stops k3s ..."
 stop_k3s
 
