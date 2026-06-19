@@ -20,7 +20,7 @@ createArchive() {
   local ARCHIVE_PATH="${WRAPPER_DIR}/${ARCHIVE_NAME}"
 
   echo "Creating archive ${ARCHIVE_PATH} ..."
-  mkdir -p "${WRAPPER_DIR}"
+  sudo mkdir -p "${WRAPPER_DIR}"
   sudo tar -czf "${ARCHIVE_PATH}" -C "$(dirname "${DATA_DIR}")" "$(basename "${DATA_DIR}")"
 
   if [[ $? -eq 0 ]]; then
@@ -30,23 +30,23 @@ createArchive() {
       [[ -d "$old_dir" ]] || continue
       if [[ "$old_dir" != "${WRAPPER_DIR}/" ]]; then
         echo "Deleting old archive folder: $old_dir"
-        rm -rf "$old_dir"
+        sudo rm -rf "$old_dir"
       fi
     done
     echo "Previous archives deleted!"
 
-    echo "${WRAPPER_DIR}" > "${ARCHIVE_DIR}/lastFullArchive"
+    echo "${WRAPPER_DIR}" | sudo tee "${ARCHIVE_DIR}/lastFullArchive" > /dev/null
     echo "lastFullArchive updated with: ${WRAPPER_DIR}"
   else
     echo "Archive creation failed!"
-    rm -rf "${WRAPPER_DIR}"
+    sudo rm -rf "${WRAPPER_DIR}"
   fi
 }
 
 stop_k3s() {
     echo "Stopping k3s cluster..."
-    if systemctl is-active --quiet k3s.service; then
-        systemctl stop k3s.service || true
+    if sudo systemctl is-active --quiet k3s.service; then
+        sudo systemctl stop k3s.service || true
         sleep 5
         echo "k3s stopped"
     else
@@ -57,15 +57,15 @@ stop_k3s() {
 stop_nfs_shares() {
     echo "Stopping NFS shares..."    
     if [ -f /etc/exports ]; then
-        cp /etc/exports /etc/exports.bak
-        sed -i 's/^\([^#]\)/#\1/' /etc/exports
+        sudo cp /etc/exports /etc/exports.bak
+        sudo sed -i 's/^\([^#]\)/#\1/' /etc/exports
         echo "NFS exports commented out"
     fi
     
-    systemctl stop nfs-server.service nfs-mountd.service rpc-statd.service 2>/dev/null || true
+    sudo systemctl stop nfs-server.service nfs-mountd.service rpc-statd.service 2>/dev/null || true
     sleep 3
     
-    if systemctl is-active --quiet nfs-server.service; then
+    if sudo systemctl is-active --quiet nfs-server.service; then
         echo "NFS server did not stop cleanly"
     else
         echo "NFS shares stopped"
@@ -75,16 +75,16 @@ stop_nfs_shares() {
 start_nfs_shares() {
     echo "Starting NFS shares..."    
     if [ -f /etc/exports.bak ]; then
-        cp /etc/exports.bak /etc/exports
-        rm /etc/exports.bak
-        exportfs -ra 2>/dev/null || true
+        sudo cp /etc/exports.bak /etc/exports
+        sudo rm /etc/exports.bak
+        sudo exportfs -ra 2>/dev/null || true
         echo "NFS exports restored"
     fi
     
-    systemctl start rpc-statd.service nfs-mountd.service nfs-server.service
+    sudo systemctl start rpc-statd.service nfs-mountd.service nfs-server.service
     sleep 2
     
-    if systemctl is-active --quiet nfs-server.service; then
+    if sudo systemctl is-active --quiet nfs-server.service; then
         echo "NFS shares started successfully"
     else
         echo "NFS server failed to start"
@@ -93,14 +93,14 @@ start_nfs_shares() {
 
 start_k3s() {
     echo "Starting k3s cluster..."
-    systemctl start k3s.service
+    sudo systemctl start k3s.service
     
     echo "Waiting for k3s to become ready..."
     local max_wait=120  # Increased timeout
     local wait_time=0
     
     while [ $wait_time -lt $max_wait ]; do
-        if kubectl get nodes >/dev/null 2>&1; then
+        if sudo kubectl get nodes >/dev/null 2>&1; then
             echo "k3s is ready after $((wait_time / 5 + 1)) attempts"
             return 0
         fi
@@ -113,7 +113,7 @@ start_k3s() {
     done
     
     echo "k3s did not become ready within timeout - see logs for details"
-    systemctl status k3s --no-pager | tail -n 10
+    sudo systemctl status k3s --no-pager | tail -n 10
     return 1
 }
 
