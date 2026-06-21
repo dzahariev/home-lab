@@ -1378,44 +1378,6 @@ data:
         },
         {
           "id": 7,
-          "title": "CPU Temperature",
-          "type": "timeseries",
-          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
-          "datasource": {"type": "prometheus", "uid": ""},
-          "targets": [
-            {
-              "expr": "node_hwmon_temp_celsius{instance=~\"$node\",chip=\"platform_coretemp_0\",sensor=\"temp1\"}",
-              "legendFormat": "Core Temp",
-              "refId": "A"
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {"unit": "celsius"},
-            "overrides": []
-          },
-          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
-        },
-        {
-          "id": 8,
-          "title": "Fan Speed",
-          "type": "timeseries",
-          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
-          "datasource": {"type": "prometheus", "uid": ""},
-          "targets": [
-            {
-              "expr": "node_hwmon_fan_rpm{instance=~\"$node\"}",
-              "legendFormat": "{{chip}} {{sensor}}",
-              "refId": "A"
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {"unit": "rotrpm"},
-            "overrides": []
-          },
-          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
-        },
-        {
-          "id": 9,
           "title": "RAM Usage",
           "type": "timeseries",
           "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
@@ -1434,6 +1396,44 @@ data:
           ],
           "fieldConfig": {
             "defaults": {"unit": "bytes"},
+            "overrides": []
+          },
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
+        },
+        {
+          "id": 8,
+          "title": "CPU Temperature",
+          "type": "timeseries",
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_hwmon_temp_celsius{instance=~\"$node\",chip=\"platform_coretemp_0\",sensor=\"temp1\"}",
+              "legendFormat": "Core Temp",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {"unit": "celsius"},
+            "overrides": []
+          },
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
+        },
+        {
+          "id": 9,
+          "title": "Fan Speed",
+          "type": "timeseries",
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_hwmon_fan_rpm{instance=~\"$node\"}",
+              "legendFormat": "{{chip}} {{sensor}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {"unit": "rotrpm"},
             "overrides": []
           },
           "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
