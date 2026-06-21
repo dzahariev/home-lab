@@ -1380,7 +1380,7 @@ data:
           "id": 7,
           "title": "RAM Usage",
           "type": "timeseries",
-          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
           "datasource": {"type": "prometheus", "uid": ""},
           "targets": [
             {
@@ -1404,7 +1404,7 @@ data:
           "id": 8,
           "title": "CPU Temperature",
           "type": "timeseries",
-          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
           "datasource": {"type": "prometheus", "uid": ""},
           "targets": [
             {
@@ -1423,7 +1423,7 @@ data:
           "id": 9,
           "title": "Fan Speed",
           "type": "timeseries",
-          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
           "datasource": {"type": "prometheus", "uid": ""},
           "targets": [
             {
