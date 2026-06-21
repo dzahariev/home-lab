@@ -1185,3 +1185,299 @@ data:
       "uid": "k8s-loki-logs",
       "version": 1
     }
+  cluster-hardware-overview.json: |
+    {
+      "annotations": {"list": []},
+      "editable": true,
+      "graphTooltip": 1,
+      "links": [],
+      "panels": [
+        {
+          "id": 1,
+          "title": "Node Name",
+          "type": "stat",
+          "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_uname_info{instance=~\"$node\"}",
+              "legendFormat": "{{nodename}}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "textMode": "name",
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+            "orientation": "auto"
+          },
+          "fieldConfig": {
+            "defaults": {"color": {"mode": "fixed", "fixedColor": "text"}, "unit": "string"},
+            "overrides": []
+          }
+        },
+        {
+          "id": 2,
+          "title": "Uptime",
+          "type": "stat",
+          "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_time_seconds{instance=~\"$node\"} - node_boot_time_seconds{instance=~\"$node\"}",
+              "legendFormat": "Uptime",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "textMode": "value",
+            "colorMode": "none",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+            "orientation": "auto"
+          },
+          "fieldConfig": {
+            "defaults": {"unit": "dtdurations"},
+            "overrides": []
+          }
+        },
+        {
+          "id": 3,
+          "title": "CPU Usage",
+          "type": "gauge",
+          "gridPos": {"h": 4, "w": 4, "x": 12, "y": 0},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{instance=~\"$node\",mode=\"idle\"}[5m])) * 100)",
+              "legendFormat": "CPU %",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+            "orientation": "auto",
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percent",
+              "min": 0,
+              "max": 100,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {"color": "green", "value": null},
+                  {"color": "yellow", "value": 70},
+                  {"color": "red", "value": 90}
+                ]
+              }
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 4,
+          "title": "CPU Temperature",
+          "type": "gauge",
+          "gridPos": {"h": 4, "w": 4, "x": 16, "y": 0},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_hwmon_temp_celsius{instance=~\"$node\",chip=\"platform_coretemp_0\",sensor=\"temp1\"}",
+              "legendFormat": "Temp",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+            "orientation": "auto",
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "celsius",
+              "min": 0,
+              "max": 100,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {"color": "green", "value": null},
+                  {"color": "yellow", "value": 70},
+                  {"color": "red", "value": 85}
+                ]
+              }
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 5,
+          "title": "RAM Usage",
+          "type": "gauge",
+          "gridPos": {"h": 4, "w": 4, "x": 20, "y": 0},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "100 * (1 - node_memory_MemAvailable_bytes{instance=~\"$node\"} / node_memory_MemTotal_bytes{instance=~\"$node\"})",
+              "legendFormat": "RAM %",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+            "orientation": "auto",
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percent",
+              "min": 0,
+              "max": 100,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {"color": "green", "value": null},
+                  {"color": "yellow", "value": 70},
+                  {"color": "red", "value": 90}
+                ]
+              }
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 6,
+          "title": "CPU Usage",
+          "type": "timeseries",
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{instance=~\"$node\",mode=\"idle\"}[5m])) * 100)",
+              "legendFormat": "CPU Used %",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {"unit": "percent", "min": 0, "max": 100},
+            "overrides": []
+          },
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
+        },
+        {
+          "id": 7,
+          "title": "CPU Temperature",
+          "type": "timeseries",
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_hwmon_temp_celsius{instance=~\"$node\",chip=\"platform_coretemp_0\",sensor=\"temp1\"}",
+              "legendFormat": "Core Temp",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {"unit": "celsius"},
+            "overrides": []
+          },
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
+        },
+        {
+          "id": 8,
+          "title": "Fan Speed",
+          "type": "timeseries",
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_hwmon_fan_rpm{instance=~\"$node\"}",
+              "legendFormat": "{{chip}} {{sensor}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {"unit": "rotrpm"},
+            "overrides": []
+          },
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
+        },
+        {
+          "id": 9,
+          "title": "RAM Usage",
+          "type": "timeseries",
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "node_memory_MemTotal_bytes{instance=~\"$node\"} - node_memory_MemAvailable_bytes{instance=~\"$node\"}",
+              "legendFormat": "Used",
+              "refId": "A"
+            },
+            {
+              "expr": "node_memory_MemAvailable_bytes{instance=~\"$node\"}",
+              "legendFormat": "Available",
+              "refId": "B"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {"unit": "bytes"},
+            "overrides": []
+          },
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
+        },
+        {
+          "id": 10,
+          "title": "Disk Space Usage",
+          "type": "timeseries",
+          "gridPos": {"h": 8, "w": 24, "x": 0, "y": 20},
+          "datasource": {"type": "prometheus", "uid": ""},
+          "targets": [
+            {
+              "expr": "100 - (node_filesystem_avail_bytes{instance=~\"$node\",fstype!~\"tmpfs|overlay\",mountpoint!~\"/run.*|/sys.*|/proc.*\"} / node_filesystem_size_bytes{instance=~\"$node\",fstype!~\"tmpfs|overlay\",mountpoint!~\"/run.*|/sys.*|/proc.*\"} * 100)",
+              "legendFormat": "{{mountpoint}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {"unit": "percent", "min": 0, "max": 100},
+            "overrides": []
+          },
+          "options": {"tooltip": {"mode": "multi", "sort": "desc"}}
+        }
+      ],
+      "refresh": "30s",
+      "schemaVersion": 39,
+      "tags": ["kubernetes", "hardware", "node"],
+      "templating": {
+        "list": [
+          {
+            "name": "node",
+            "type": "query",
+            "label": "Node",
+            "datasource": {"type": "prometheus", "uid": ""},
+            "query": "label_values(node_uname_info, instance)",
+            "refresh": 2,
+            "includeAll": false,
+            "multi": false,
+            "sort": 1,
+            "current": {}
+          }
+        ]
+      },
+      "time": {"from": "now-1h", "to": "now"},
+      "title": "Cluster Hardware Overview",
+      "uid": "cluster-hardware-overview"
+    }
