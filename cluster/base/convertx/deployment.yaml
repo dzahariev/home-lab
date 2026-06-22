@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: convertx
-        image: c4illin/convertx:v0.17.0
+        image: c4illin/convertx:v0.18.0
         ports:
         - containerPort: 3000
           name: http
