@@ -43,6 +43,22 @@ createArchive() {
   fi
 }
 
+cleanup_container_logs() {
+    echo "Cleaning up old container log files..."
+    find /var/log/pods -name "*.log" -type f -mtime +7 -delete 2>/dev/null || true
+    echo "Container logs cleaned up"
+}
+
+cleanup_k3s_images() {
+    echo "Cleaning up unused k3s container images..."
+    if sudo systemctl is-active --quiet k3s.service; then
+        sudo crictl rmi --prune || true
+        echo "Unused k3s images cleaned up"
+    else
+        echo "k3s is not running, skipping image cleanup"
+    fi
+}
+
 stop_k3s() {
     echo "Stopping k3s cluster..."
     if sudo systemctl is-active --quiet k3s.service; then
@@ -121,6 +137,12 @@ echo "Get updates from GitHub ..."
 cd /home/helios/home-lab
 sudo git config --global --add safe.directory /home/helios/home-lab
 git pull
+
+echo "Cleaning up container logs ..."
+cleanup_container_logs
+
+echo "Cleaning up unused k3s images ..."
+cleanup_k3s_images
 
 echo "Stops k3s ..."
 stop_k3s
