@@ -34,6 +34,7 @@ data:
       retention_enabled: true
       retention_delete_delay: 2h
       retention_delete_worker_count: 1
+      delete_request_store: filesystem
     limits_config:
       retention_period: 720h
 ---
