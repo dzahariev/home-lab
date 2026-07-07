@@ -71,7 +71,19 @@ Verify:
 kubectl get nodes
 ```
 
-### 2. Configure NFS Exports
+### 2. Configure System Limits
+
+Increase inotify watches to prevent k3s/containerd from exhausting the default kernel limits (which causes container image removal failures and unresponsive containerd):
+
+```bash
+sudo tee /etc/sysctl.d/99-k3s-inotify.conf > /dev/null <<EOF
+fs.inotify.max_user_watches = 1048576
+fs.inotify.max_user_instances = 1024
+EOF
+sudo sysctl --system
+```
+
+### 3. Configure NFS Exports
 
 On Machine (192.168.0.176) that serves NFS shares for application data that needs to be accessible from all nodes.
 
@@ -147,7 +159,7 @@ sudo apt install nfs-common
 | taskboard | `/ssd/tasks` |
 | workers | `/ssd/downloads`, `/ssd/handbrake/input`, `/ssd/handbrake/output` |
 
-### 3. Label Nodes
+### 4. Label Nodes
 
 Label the node for GPU and storage workloads:
 
@@ -158,7 +170,7 @@ Label the node for GPU and storage workloads:
 This applies the following labels to the `hyperion` node:
 - `node-role.kubernetes.io/storage=true` — schedules storage-bound workloads (databases, media)
 
-### 4. Create Secrets
+### 5. Create Secrets
 
 Secrets are managed outside of git. Each overlay has a `.env` file (gitignored) that holds all secret values.
 
@@ -180,7 +192,7 @@ Fill in the values in `overlays/zahariev.com/.env`, then run:
 
 This creates all Kubernetes secrets from the `.env` file. Run this before the first ArgoCD sync, or any time a secret value changes.
 
-### 5. Install cert-manager and ArgoCD
+### 6. Install cert-manager and ArgoCD
 
 Run the bootstrap script:
 
