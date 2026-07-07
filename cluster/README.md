@@ -159,6 +159,23 @@ sudo apt install nfs-common
 | taskboard | `/ssd/tasks` |
 | workers | `/ssd/downloads`, `/ssd/handbrake/input`, `/ssd/handbrake/output` |
 
+Fix NFS Shutdown Ordering
+
+K3s pods mount NFS volumes from the local NFS server (192.168.0.176 — the same machine). On reboot, `nfs-server.service` can stop before K3s/kubelet has unmounted all pod NFS volumes, causing the kernel to hang retrying NFS calls for ~50 seconds during shutdown.
+
+Fix by creating a systemd drop-in that orders K3s shutdown before the NFS server stops:
+
+```bash
+sudo mkdir -p /etc/systemd/system/k3s.service.d/
+sudo tee /etc/systemd/system/k3s.service.d/nfs-ordering.conf << 'EOF'
+[Unit]
+After=nfs-server.service
+EOF
+sudo systemctl daemon-reload
+```
+
+This ensures kubelet gracefully unmounts all NFS-backed pod volumes before the NFS server goes down.
+
 ### 4. Label Nodes
 
 Label the node for GPU and storage workloads:
@@ -274,3 +291,4 @@ sudo /usr/local/bin/k3s-killall.sh
 sudo systemctl enable k3s.service
 sudo systemctl start k3s.service
 ```
+
