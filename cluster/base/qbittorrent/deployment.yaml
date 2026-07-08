@@ -21,7 +21,7 @@ spec:
         node-role.kubernetes.io/storage: "true"
       containers:
       - name: qbittorrent
-        image: linuxserver/qbittorrent:5.2.2
+        image: linuxserver/qbittorrent:5.2.3
         ports:
         - containerPort: 8080
           name: webui
