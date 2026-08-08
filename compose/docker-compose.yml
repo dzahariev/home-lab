@@ -110,7 +110,7 @@ services:
 
   # Grafana container
   grafana:
-    image: grafana/grafana:13.1.2
+    image: grafana/grafana:13.1.3
     container_name: grafana
     restart: always
     volumes:
