@@ -22,7 +22,7 @@ spec:
         node-role.kubernetes.io/storage: "true"
       containers:
       - name: plex
-        image: plexinc/pms-docker:1.43.3.10861-07dfddaeb
+        image: plexinc/pms-docker:1.43.3.10896-cb3ebc72d
         ports:
         - containerPort: 32400
           name: pms
