@@ -153,8 +153,8 @@ start_k3s() {
 
 echo "Get updates from GitHub ..."
 cd /home/helios/home-lab
-sudo git config --global --add safe.directory /home/helios/home-lab
-git pull
+# This script runs as root; git must run as the repo owner or it writes root-owned objects
+sudo -H -u helios git pull
 
 echo "Cleaning up container logs ..."
 cleanup_container_logs
