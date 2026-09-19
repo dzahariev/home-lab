@@ -4,9 +4,9 @@
 
 set -euo pipefail
 
-ARGOCD_VERSION="v3.5.1"
+ARGOCD_VERSION="v3.5.3"
 ARGOCD_NAMESPACE="argocd"
-CERT_MANAGER_VERSION="v1.21.1"
+CERT_MANAGER_VERSION="v1.21.2"
 
 echo "Installing cert-manager ${CERT_MANAGER_VERSION}..."
 kubectl apply -f "https://github.com/cert-manager/cert-manager/releases/download/${CERT_MANAGER_VERSION}/cert-manager.yaml"
