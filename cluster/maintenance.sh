@@ -64,14 +64,32 @@ stop_k3s() {
     if sudo systemctl is-active --quiet k3s.service; then
         sudo systemctl stop k3s.service || true
         sleep 5
+        echo "k3s service stopped"
+    else
+        echo "k3s service already stopped"
+    fi
+
+    # Stopping the unit leaves containerd shims alive, still holding pod NFS mounts.
+    if [ -x /usr/local/bin/k3s-killall.sh ]; then
+        echo "Tearing down remaining pods and pod volume mounts..."
+        sudo /usr/local/bin/k3s-killall.sh
         echo "k3s stopped"
     else
-        echo "k3s already stopped"
+        echo "WARNING: /usr/local/bin/k3s-killall.sh not found - pod NFS mounts may remain"
     fi
 }
 
 stop_nfs_shares() {
-    echo "Stopping NFS shares..."    
+    echo "Stopping NFS shares..."
+
+    local remaining
+    remaining=$(findmnt -t nfs,nfs4 -n | wc -l)
+    if (( remaining > 0 )); then
+        echo "ABORT: ${remaining} NFS mount(s) still active - stopping the server would hang them:"
+        findmnt -t nfs,nfs4 -n
+        return 1
+    fi
+
     if [ -f /etc/exports ]; then
         sudo cp /etc/exports /etc/exports.bak
         sudo sed -i 's/^\([^#]\)/#\1/' /etc/exports
@@ -148,14 +166,20 @@ echo "Stops k3s ..."
 stop_k3s
 
 echo "Stops NFS ..."
-stop_nfs_shares
+if ! stop_nfs_shares; then
+  echo "Aborting maintenance - restoring cluster without updating packages."
+  start_k3s || echo "k3s failed to start properly"
+  exit 1
+fi
 
 echo "Updates the host packages ..."
-sudo apt-get clean -y
-sudo apt-get update
-sudo apt-get dist-upgrade -y
-sudo apt-get upgrade -y
-sudo apt-get autoremove -y
+# needrestart walks /proc/*/maps and blocks forever if any NFS mount is unresponsive
+APT_ENV=(DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a)
+sudo "${APT_ENV[@]}" apt-get clean -y
+sudo "${APT_ENV[@]}" apt-get update
+sudo "${APT_ENV[@]}" apt-get dist-upgrade -y
+sudo "${APT_ENV[@]}" apt-get upgrade -y
+sudo "${APT_ENV[@]}" apt-get autoremove -y
 echo "Host packages are updated!"
 
 echo "Checking if monthly archive is needed ..."
