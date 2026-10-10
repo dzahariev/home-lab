@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: calibre
-        image: linuxserver/calibre:9.15.0
+        image: linuxserver/calibre:9.16.0
         ports:
         - containerPort: 8081
           name: webserver
