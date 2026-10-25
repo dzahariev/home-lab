@@ -21,7 +21,7 @@ spec:
         node-role.kubernetes.io/storage: "true"
       containers:
       - name: dlp-worker
-        image: dzahariev/dlp-worker:1.8
+        image: dzahariev/dlp-worker:2.0
         volumeMounts:
         - name: tasks
           mountPath: /tasks
