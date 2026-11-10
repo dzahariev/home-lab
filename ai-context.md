@@ -107,7 +107,6 @@ Security is handled externally at the ingress/TLS layer. Individual applications
 | [cluster/base/taskboard/](cluster/base/taskboard/) | Task management app (Keycloak-secured) |
 | [cluster/base/vikunja/](cluster/base/vikunja/) | Task manager (Vikunja + PostgreSQL) |
 | [cluster/base/workers/](cluster/base/workers/) | Background workers (DLP + Handbrake with GPU) |
-| [cluster/base/youtrack/](cluster/base/youtrack/) | Issue tracker (JetBrains YouTrack) |
 | [cluster/overlays/zahariev.com/](cluster/overlays/zahariev.com/) | Production overlay: patches hostnames to *.zahariev.com, sets PV paths and node affinity |
 | [compose/docker-compose.yml](compose/docker-compose.yml) | Defines all compose services (monitoring, DNS, file browser) |
 | [compose/blackbox-exporter/blackbox.yml](compose/blackbox-exporter/blackbox.yml) | HTTP probe configuration for blackbox-exporter |
@@ -178,7 +177,6 @@ No test framework. Validation approaches:
 | dzahariev/taskboard:1.25 | Task board |
 | dzahariev/dlp-worker:1.7 | Download worker |
 | dzahariev/handbrake-worker:3.6 | Video transcoding worker |
-| jetbrains/youtrack:2026.1.13757 | Issue tracker |
 | intel/intel-gpu-plugin:0.36.0 | GPU device plugin |
 
 ### Container Images — Compose
@@ -288,7 +286,6 @@ This repo does not expose APIs. It deploys services that expose the following in
 | Qbittorrent | qbittorrent.zahariev.com | 443 | Torrent client |
 | Taskboard | taskboard.zahariev.com | 443 | Task management |
 | Vikunja | vikunja.zahariev.com | 443 | Task manager |
-| YouTrack | youtrack.zahariev.com | 443 | Issue tracker |
 
 ## Dev Commands
 

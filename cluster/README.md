@@ -142,7 +142,6 @@ sudo apt install nfs-common
 | mealie | `/data/mealie` |
 | vikunja | `/data/vikunja` |
 | workers | `/ssd/tasks` |
-| youtrack | `/data/youtrack` |
 | prometheus | `/mdata/prometheus` |
 | loki | `/mdata/loki` |
 | grafana | `/mdata/grafana` |
