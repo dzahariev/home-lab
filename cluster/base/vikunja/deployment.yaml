@@ -33,13 +33,13 @@ spec:
               key: service-secret
         - name: VIKUNJA_DATABASE_TYPE
           value: "postgres"
-        - name: VIKUNJA_DATABASE_HOST
-          value: "vikunjadb"
-        - name: VIKUNJA_DATABASE_PORT
+        - name: DB_PORT
           valueFrom:
             secretKeyRef:
               name: vikunja-db-secrets
               key: db-port
+        - name: VIKUNJA_DATABASE_HOST
+          value: "vikunjadb:$(DB_PORT)"
         - name: VIKUNJA_DATABASE_DATABASE
           valueFrom:
             secretKeyRef:
