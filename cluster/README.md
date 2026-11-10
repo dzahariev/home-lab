@@ -140,6 +140,7 @@ sudo apt install nfs-common
 | filebrowser | `/data/filebrowser/data` |
 | freshrss | `/data/freshrss` |
 | mealie | `/data/mealie` |
+| vikunja | `/data/vikunja` |
 | workers | `/ssd/tasks` |
 | youtrack | `/data/youtrack` |
 | prometheus | `/mdata/prometheus` |
@@ -153,6 +154,7 @@ sudo apt install nfs-common
 | keycloak | `/data/keycloakdb` |
 | mattermost | `/data/mattermost`, `/data/mattermostdb` |
 | mealie | `/data/mealiedb` |
+| vikunja | `/data/vikunjadb` |
 | plex | `/data/plex/config`, `/ssd` |
 | qbittorrent | `/data/qbittorrent/config`, `/ssd/downloads` |
 | filebrowser | `/ssd` |

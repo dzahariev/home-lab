@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vikunja
+  namespace: vikunja
+spec:
+  template:
+    spec:
+      containers:
+      - name: vikunja
+        env:
+        - name: VIKUNJA_SERVICE_PUBLICURL
+          value: "https://vikunja.zahariev.com"
