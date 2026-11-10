@@ -58,9 +58,9 @@ spec:
         - name: VIKUNJA_DEFAULTSETTINGS_TIMEZONE
           value: "Europe/Sofia"
         - name: VIKUNJA_SERVICE_ENABLEREGISTRATION
-          value: false
+          value: "false"
         - name: VIKUNJA_SERVICE_ENABLEUSERDELETION
-          value: false 
+          value: "false" 
         - name: VIKUNJA_DEFAULTSETTINGS_WEEK_START
           value: 1
         volumeMounts:
