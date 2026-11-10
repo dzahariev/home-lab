@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vikunja
+  namespace: vikunja
+  labels:
+    app: vikunja
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: vikunja
+  template:
+    metadata:
+      labels:
+        app: vikunja
+    spec:
+      containers:
+      - name: vikunja
+        image: vikunja/vikunja:2.8.0
+        ports:
+        - containerPort: 3456
+          name: http
+        env:
+        - name: VIKUNJA_SERVICE_PUBLICURL
+          value: "https://vikunja.example.com"
+        - name: VIKUNJA_SERVICE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: vikunja-secrets
+              key: service-secret
+        - name: VIKUNJA_DATABASE_TYPE
+          value: "postgres"
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: vikunja-db-secrets
+              key: db-port
+        - name: VIKUNJA_DATABASE_HOST
+          value: "vikunjadb:$(DB_PORT)"
+        - name: VIKUNJA_DATABASE_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: vikunja-db-secrets
+              key: db-name
+        - name: VIKUNJA_DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: vikunja-db-secrets
+              key: db-user
+        - name: VIKUNJA_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: vikunja-db-secrets
+              key: db-password
+        - name: VIKUNJA_SERVICE_TIMEZONE
+          value: "Europe/Sofia"
+        volumeMounts:
+        - name: data
+          mountPath: /app/vikunja/files
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: vikunja-data

@@ -43,6 +43,8 @@ SECRET_NS[taskboard-secrets]="taskboard"
 SECRET_NS[invval-secrets]="invval"
 SECRET_NS[plex-secrets]="plex"
 SECRET_NS[grafana-secrets]="monitoring"
+SECRET_NS[vikunja-secrets]="vikunja"
+SECRET_NS[vikunja-db-secrets]="vikunja"
 
 # Collect all keys per secret
 declare -A SECRET_ARGS
