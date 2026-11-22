@@ -21,7 +21,7 @@ spec:
         node-role.kubernetes.io/storage: "true"
       containers:
       - name: taskboard
-        image: dzahariev/taskboard:1.25
+        image: dzahariev/taskboard:1.26
         ports:
         - containerPort: 8800
           name: http
