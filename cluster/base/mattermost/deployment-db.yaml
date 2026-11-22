@@ -52,7 +52,7 @@ spec:
             command:
             - sh
             - -c
-            - pg_isready -U $(POSTGRES_USER) -p $(DB_PORT)
+            - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB" -p "$DB_PORT"
           initialDelaySeconds: 5
           periodSeconds: 3
           timeoutSeconds: 1
