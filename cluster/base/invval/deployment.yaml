@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: invval
-        image: dzahariev/invval:4.1
+        image: dzahariev/invval:4.2
         ports:
         - containerPort: 8080
           name: http
