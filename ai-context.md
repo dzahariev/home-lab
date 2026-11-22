@@ -162,7 +162,7 @@ No test framework. Validation approaches:
 | georgizahariev/portfolio:0.0.6 | Portfolio site |
 | dzahariev/invval:4.1 | Investment validator |
 | keycloak/keycloak:26.6.3 | Identity provider |
-| postgres:18.6-alpine3.24 | PostgreSQL (Keycloak, Mattermost, Mealie, Vikunja) |
+| postgres:18.7-alpine3.24 | PostgreSQL (Keycloak, Mattermost, Mealie, Vikunja) |
 | mattermost/mattermost-team-edition:11.8.0 | Team chat |
 | ghcr.io/mealie-recipes/mealie:v3.19.2 | Recipe manager |
 | vikunja/vikunja:2.8.0 | Task manager |
