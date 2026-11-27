@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mirini-keycloak-cfg
+  namespace: mirini
+data:
+  keycloak.json: |
+    {
+      "realm": "mirini",
+      "auth-server-url": "https://auth.zahariev.com/",
+      "ssl-required": "external",
+      "resource": "mirini-frontend-client",
+      "public-client": true,
+      "confidential-port": 0
+    }

@@ -101,6 +101,7 @@ Security is handled externally at the ingress/TLS layer. Individual applications
 | [cluster/base/keycloak/](cluster/base/keycloak/) | Identity provider (Keycloak + PostgreSQL) |
 | [cluster/base/mattermost/](cluster/base/mattermost/) | Team chat (Mattermost + PostgreSQL) |
 | [cluster/base/mealie/](cluster/base/mealie/) | Recipe manager (Mealie + PostgreSQL) |
+| [cluster/base/mirini/](cluster/base/mirini/) | Mirini app (Keycloak-secured, PostgreSQL, migrations as init-container) |
 | [cluster/base/monitoring/](cluster/base/monitoring/) | Full observability stack (Prometheus, Grafana, Loki, Promtail, Node-exporter, Kube-state-metrics) |
 | [cluster/base/plex/](cluster/base/plex/) | Media server with Intel GPU transcoding |
 | [cluster/base/qbittorrent/](cluster/base/qbittorrent/) | BitTorrent client |
@@ -166,6 +167,9 @@ No test framework. Validation approaches:
 | mattermost/mattermost-team-edition:11.8.0 | Team chat |
 | ghcr.io/mealie-recipes/mealie:v3.19.2 | Recipe manager |
 | vikunja/vikunja:2.8.0 | Task manager |
+| dzahariev/mirini:0.1.0 | Mirini app |
+| dzahariev/mirini-migrations:0.1.0 | Mirini DB migrations (init-container) |
+| postgres:19.0-alpine3.24 | PostgreSQL (Mirini) |
 | prom/prometheus:v3.12.0 | Metrics |
 | grafana/grafana:13.0.2 | Dashboards |
 | grafana/loki:3.7.2 | Log aggregation |
@@ -230,6 +234,13 @@ No test framework. Validation approaches:
 | vikunja-db-secrets/db-password | Yes | — | Vikunja DB password |
 | vikunja-db-secrets/db-port | Yes | — | Vikunja DB port |
 | vikunja-secrets/service-secret | Yes | — | Vikunja JWT signing secret |
+| mirini-db-secrets/db-name | Yes | — | Mirini DB name |
+| mirini-db-secrets/db-user | Yes | — | Mirini DB user |
+| mirini-db-secrets/db-password | Yes | — | Mirini DB password |
+| mirini-db-secrets/db-port | Yes | — | Mirini DB port |
+| mirini-secrets/realm | Yes | — | Keycloak realm for mirini |
+| mirini-secrets/client-id | Yes | — | Keycloak backend client ID for mirini |
+| mirini-secrets/client-secret | Yes | — | Keycloak backend client secret for mirini |
 | invval-secrets/realm | Yes | — | Keycloak realm for invval |
 | invval-secrets/client-id | Yes | — | Keycloak client ID for invval |
 | invval-secrets/client-secret | Yes | — | Keycloak client secret for invval |
@@ -281,6 +292,7 @@ This repo does not expose APIs. It deploys services that expose the following in
 | Keycloak | auth.zahariev.com | 443 | Identity provider |
 | Mattermost | mattermost.zahariev.com | 443 | Team chat |
 | Mealie | mealie.zahariev.com | 443 | Recipes |
+| Mirini | mirini.zahariev.com | 443 | Mirini app |
 | Plex | plex.zahariev.com | 443 | Media server |
 | Prometheus | prometheus.zahariev.com | 443 | Metrics |
 | Qbittorrent | qbittorrent.zahariev.com | 443 | Torrent client |
@@ -339,7 +351,7 @@ SSHPASS="x" REMOTE_USER="x" REMOTE_HOST="x" REMOTE_BASE="/x" LOCAL_BASE="/x" ./c
 - **GitOps delivery**: Push to `main` → ArgoCD detects change → applies manifests (prune + self-heal)
 - **Storage**: Local PVs with node affinity (hyperion); NFS-backed PVs for shared data
 - **GPU workloads**: Plex and Handbrake worker pinned to gpu=true nodes via nodeSelector + resource requests
-- **Database pattern**: PostgreSQL sidecar per stateful service (keycloakdb, mattermostdb, mealiedb, vikunjadb)
+- **Database pattern**: PostgreSQL sidecar per stateful service (keycloakdb, mattermostdb, mealiedb, vikunjadb, mirinidb)
 - **No horizontal scaling**: All services run as single replicas with Recreate deployment strategy
 
 ## Non-Obvious Design Decisions
@@ -378,6 +390,7 @@ SSHPASS="x" REMOTE_USER="x" REMOTE_HOST="x" REMOTE_BASE="/x" LOCAL_BASE="/x" ./c
 - `keycloak-db-secrets` — shared secret name for Keycloak DB
 - `taskboard-secrets` — secret name for taskboard auth
 - `invval-secrets` — secret name for invval auth
+- `mirini-secrets` / `mirini-db-secrets` — secret names for mirini auth and DB
 - `grafana-secrets` — secret name for Grafana admin
 - `plex-secrets` — secret name for Plex claim
 - `ServerSideApply=true` — sync option in ApplicationSet

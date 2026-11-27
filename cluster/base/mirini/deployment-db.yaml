@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mirinidb
+  namespace: mirini
+  labels:
+    app: mirinidb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mirinidb
+  template:
+    metadata:
+      labels:
+        app: mirinidb
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/storage: "true"
+      containers:
+      - name: postgres
+        image: postgres:19.0-alpine3.24
+        args: [ "-p", "$(DB_PORT)" ]
+        ports:
+        - containerPort: 5432
+          name: postgres
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-name
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-password
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-port
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB" -p "$DB_PORT"
+          initialDelaySeconds: 5
+          periodSeconds: 3
+          timeoutSeconds: 1
+          failureThreshold: 10
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: mirini-db

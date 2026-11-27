@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mirini
+  namespace: mirini
+spec:
+  rules:
+  - host: mirini.zahariev.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mirini
+            port:
+              number: 8800
+  tls:
+  - hosts:
+    - mirini.zahariev.com
+    secretName: mirini-tls

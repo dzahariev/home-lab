@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mirini
+  namespace: mirini
+spec:
+  template:
+    spec:
+      containers:
+      - name: mirini
+        env:
+        - name: AUTH_URL
+          value: "https://auth.zahariev.com"

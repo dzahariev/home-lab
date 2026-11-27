@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mirini
+  namespace: mirini
+  labels:
+    app: mirini
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mirini
+  template:
+    metadata:
+      labels:
+        app: mirini
+    spec:
+      # Migrations run before every app start; "migrate up" is a no-op when the schema is current.
+      # Until the DB is reachable the init container fails and is retried with back-off.
+      initContainers:
+      - name: migrations
+        image: dzahariev/mirini-migrations:0.1.0
+        args:
+        - "-database"
+        - "postgres://$(DB_USER)@mirinidb:$(DB_PORT)/$(DB_NAME)?sslmode=disable"
+        - "-path"
+        - "/db/migrations"
+        - "up"
+        env:
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-name
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-user
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-port
+        # Passed via env (read by lib/pq) so special characters do not need URL encoding.
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-password
+      containers:
+      - name: mirini
+        image: dzahariev/mirini:0.1.0
+        ports:
+        - containerPort: 8800
+          name: http
+        env:
+        - name: SERVER_PORT
+          value: "8800"
+        - name: AUTH_URL
+          value: "https://auth.example.com"
+        - name: AUTH_REALM
+          valueFrom:
+            secretKeyRef:
+              name: mirini-secrets
+              key: realm
+        - name: AUTH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: mirini-secrets
+              key: client-id
+        - name: AUTH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: mirini-secrets
+              key: client-secret
+        - name: DB_HOST
+          value: "mirinidb"
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-port
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-name
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mirini-db-secrets
+              key: db-password
+        - name: TZ
+          value: "Europe/Sofia"
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 10
+        volumeMounts:
+        - name: keycloak-cfg
+          mountPath: /public/keycloak-cfg/keycloak.json
+          subPath: keycloak.json
+          readOnly: true
+      volumes:
+      - name: keycloak-cfg
+        configMap:
+          name: mirini-keycloak-cfg
