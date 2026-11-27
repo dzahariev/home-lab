@@ -45,6 +45,8 @@ SECRET_NS[plex-secrets]="plex"
 SECRET_NS[grafana-secrets]="monitoring"
 SECRET_NS[vikunja-secrets]="vikunja"
 SECRET_NS[vikunja-db-secrets]="vikunja"
+SECRET_NS[mirini-secrets]="mirini"
+SECRET_NS[mirini-db-secrets]="mirini"
 
 # Collect all keys per secret
 declare -A SECRET_ARGS

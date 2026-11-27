@@ -153,6 +153,7 @@ sudo apt install nfs-common
 | keycloak | `/data/keycloakdb` |
 | mattermost | `/data/mattermost`, `/data/mattermostdb` |
 | mealie | `/data/mealiedb` |
+| mirini | `/data/mirinidb` |
 | vikunja | `/data/vikunjadb` |
 | plex | `/data/plex/config`, `/ssd` |
 | qbittorrent | `/data/qbittorrent/config`, `/ssd/downloads` |
