@@ -21,7 +21,7 @@ spec:
       # Until the DB is reachable the init container fails and is retried with back-off.
       initContainers:
       - name: migrations
-        image: dzahariev/mirini-migrations:0.1.0
+        image: dzahariev/mirini-migrations:0.2.0
         args:
         - "-database"
         - "postgres://$(DB_USER)@mirinidb:$(DB_PORT)/$(DB_NAME)?sslmode=disable"
@@ -52,7 +52,7 @@ spec:
               key: db-password
       containers:
       - name: mirini
-        image: dzahariev/mirini:0.1.0
+        image: dzahariev/mirini:0.2.0
         ports:
         - containerPort: 8800
           name: http
